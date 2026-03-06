@@ -8,39 +8,43 @@ import  errorMiddleware from './middleware/errorMiddleware.js'
 import  authRouter from './routes/authRoutes.js'
 import  userRouter from './routes/userRoutes.js'
 import  courseRouter from './routes/courseRoutes.js'
-import  enrolmentRouter from './routes/enrolmentRoutes.js'    
+import  enrolmentRouter from './routes/enrolmentRoutes.js'  
+import profileRoutes from './routes/profileRoutes.js'
+import gradesRoutes  from './routes/gradesRoutes.js'  
 import pool from './config/DB.js'
 
-dotenv.config();
-const app = express();
-const port = process.env.PORT || 8000;
+dotenv.config()
+const app = express()
+const port = process.env.PORT || 8000
 
 // ── Security & Utilities ──
-app.use(helmet());
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(helmet())
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(morgan('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // ── Health check ──
 app.get('/', (req, res) => {
-    res.json({ status: 'ok', message: '🏫 School Management API is running' });
+    res.json({ status: 'ok', message: '🏫 School Management API is running' })
 });
 
 // ── Routes ──
-app.use('/api/auth', authRouter);
-app.use('/api/users', userRouter);
-app.use('/api/courses', courseRouter);
-app.use('/api/enrolments', enrolmentRouter);
+app.use('/api/auth', authRouter)
+app.use('/api/users', userRouter)
+app.use('/api/courses', courseRouter)
+app.use('/api/enrolments', enrolmentRouter)
+app.use('/api/profile',    profileRoutes)
+app.use('/api',            gradesRoutes)
 
 // ── 404 handler ──
 app.use((req, res) => {
-    res.status(404).json({ message: `Route ${req.originalUrl} not found.` });
+    res.status(404).json({ message: `Route ${req.originalUrl} not found.` })
 });
 
 // ── Global error handler ──
-app.use(errorMiddleware);
+app.use(errorMiddleware)
 
 app.listen(port, () => {
-    console.log(`School Management Backend running on port ${port}`);
+    console.log(`School Management Backend running on port ${port}`)
 });

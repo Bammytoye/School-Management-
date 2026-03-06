@@ -1,5 +1,5 @@
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Navbar() {
     const { user, logout } = useAuth();
@@ -21,10 +21,12 @@ export default function Navbar() {
                     <p className="text-sm font-medium text-gray-800">{user?.name}</p>
                     <p className="text-xs text-gray-500 capitalize">{user?.role}</p>
                 </div>
-                <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                    {user?.name?.charAt(0).toUpperCase()}
+                <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm hover:bg-blue-700 transition-colors cursor-pointer">
+                    <Link to="/profile" className="w-full h-full flex items-center justify-center text-white">
+                        {user?.name?.charAt(0).toUpperCase()}
+                    </Link>
                 </div>
-                <button onClick={handleLogout} className="text-sm bg-gray-900 rounded-md px-5 py-2 text-gray-100 hover:bg-white border hover:text-gray-700 font-medium transition-colors">
+                <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700 font-medium transition-colors">
                     Logout
                 </button>
             </div>
