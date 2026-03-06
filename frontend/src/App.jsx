@@ -12,7 +12,7 @@ import MyCourses from './pages/Students/MyCourses'
 function App() {
 
   return (
-    <div className='mx-4 sm:mx-[10%]'>
+    <div className='mx-4'>
       <Routes>
           {/* Public */}
           <Route path="/login"    element={<Login />} />

@@ -24,7 +24,7 @@ export default function Navbar() {
                 <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
                     {user?.name?.charAt(0).toUpperCase()}
                 </div>
-                <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700 font-medium transition-colors">
+                <button onClick={handleLogout} className="text-sm bg-gray-900 rounded-md px-5 py-2 text-gray-100 hover:bg-white border hover:text-gray-700 font-medium transition-colors">
                     Logout
                 </button>
             </div>
