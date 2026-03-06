@@ -1,5 +1,7 @@
 import { Route, Routes, Navigate  } from 'react-router-dom'
 import { ProtectedRoute, RoleRoute } from './components/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -13,6 +15,15 @@ function App() {
 
   return (
     <div className='mx-4'>
+        <ToastContainer
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: { fontSize: '0.875rem', borderRadius: '10px', fontFamily: 'inherit' },
+            success: { iconTheme: { primary: '#22c55e', secondary: '#fff' } },
+            error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
+          }}
+        />
       <Routes>
           {/* Public */}
           <Route path="/login"    element={<Login />} />

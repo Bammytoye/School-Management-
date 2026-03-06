@@ -4,6 +4,8 @@ import Modal from '../../components/Modal';
 import { enrolmentAPI } from '../../api/enrolmentAPI';
 import { userAPI } from '../../api/userAPI';
 import { courseAPI } from '../../api/courseAPI';
+import { toast } from 'react-toastify'
+
 
 export default function Enrolments() {
     const [enrolments, setEnrolments] = useState([]);
@@ -24,20 +26,33 @@ export default function Enrolments() {
         setCourses(c.data.courses);
     };
 
-    useEffect(() => { fetch(); }, []);
+    useEffect(() => {
+        fetch()
+    }, []);
 
     const handleEnrol = async (e) => {
         e.preventDefault(); setError('');
         try {
-            await enrolmentAPI.enrol({ user_id: parseInt(form.user_id), course_id: parseInt(form.course_id) });
-            setModal(false); setForm({ user_id: '', course_id: '' }); fetch();
-        } catch (err) { setError(err.response?.data?.message || 'Error.'); }
+            await enrolmentAPI.enrol({ 
+                user_id: parseInt(form.user_id), 
+                course_id: parseInt(form.course_id) 
+            });
+            toast.success('Student enrolled successfully!')
+            setModal(false) 
+            setForm({ user_id: '', course_id: '' }) 
+            fetch()
+        } catch (err) {
+            const msg = err.response?.data?.message || 'Error.'
+            setError(msg)
+            toast.error(msg)
+        }
     };
 
     const handleRemove = async (id) => {
         if (!window.confirm('Remove this enrolment?')) return;
         await enrolmentAPI.remove(id);
-        fetch();
+        toast.success('Enrolment removed.')
+        fetch()
     };
 
     return (

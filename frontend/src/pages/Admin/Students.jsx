@@ -4,6 +4,7 @@ import Modal from '../../components/Modal';
 import SearchBar from '../../components/SearchBar';
 import Pagination from '../../components/Pagination';
 import { userAPI } from '../../api/userAPI';
+import { toast } from 'react-toastify'
 
 const EMPTY = { name: '', email: '', password: '', role: 'student' };
 
@@ -40,24 +41,33 @@ export default function Students() {
         e.preventDefault(); setError('');
         try {
             await userAPI.create(form);
+            toast.success('Student created successfully!');
             closeModal(); fetchUsers();
-        } catch (err) { setError(err.response?.data?.message || 'Error creating user.'); }
+        } catch (err) {
+            const msg = err.response?.data?.message || 'Error creating user.';
+            setError(msg); toast.error(msg);
+        }
     };
 
     const handleEdit = async (e) => {
         e.preventDefault(); setError('');
         try {
             await userAPI.update(selected.id, { name: form.name, email: form.email, role: form.role });
+            toast.success('Student updated!');
             closeModal(); fetchUsers();
-        } catch (err) { setError(err.response?.data?.message || 'Error updating user.'); }
+        } catch (err) {
+            const msg = err.response?.data?.message || 'Error updating user.';
+            setError(msg); toast.error(msg);
+        }
     };
 
     const handleDelete = async () => {
         try {
             await userAPI.delete(selected.id);
+            toast.success('Student deleted.');
             closeModal(); fetchUsers();
-        } catch (err) { setError(err.response?.data?.message || 'Error deleting user.'); }
-    };
+        } catch (err) { toast.error(err.response?.data?.message || 'Error deleting user.'); }
+    }
 
     return (
         <AdminLayout>

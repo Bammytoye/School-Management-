@@ -4,6 +4,7 @@ import Modal from '../../components/Modal';
 import SearchBar from '../../components/SearchBar';
 import Pagination from '../../components/Pagination';
 import { courseAPI } from '../../api/courseAPI';
+import { toast } from 'react-toastify'
 
 const EMPTY = { title: '', description: '' };
 
@@ -36,19 +37,36 @@ export default function Courses() {
 
     const handleAdd = async (e) => {
         e.preventDefault(); setError('');
-        try { await courseAPI.create(form); closeModal(); fetchCourses(); }
-        catch (err) { setError(err.response?.data?.message || 'Error creating course.'); }
+        try { await courseAPI.create(form); 
+            toast.success('Course created!'); 
+            closeModal(); 
+            fetchCourses(); }
+        catch (err) { 
+            const msg = err.response?.data?.message || 'Error creating course.'; 
+            setError(msg); toast.error(msg); 
+        }
     };
 
     const handleEdit = async (e) => {
         e.preventDefault(); setError('');
-        try { await courseAPI.update(selected.id, form); closeModal(); fetchCourses(); }
-        catch (err) { setError(err.response?.data?.message || 'Error updating course.'); }
+        try { await courseAPI.update(selected.id, form); 
+            toast.success('Course updated!'); 
+            closeModal(); 
+            fetchCourses(); }
+        catch (err) { 
+            const msg = err.response?.data?.message || 'Error updating course.'; 
+            setError(msg); toast.error(msg); 
+        }
     };
 
     const handleDelete = async () => {
-        try { await courseAPI.delete(selected.id); closeModal(); fetchCourses(); }
-        catch (err) { setError(err.response?.data?.message || 'Error.'); }
+        try { await courseAPI.delete(selected.id); 
+            toast.success('Course deleted.'); 
+            closeModal(); 
+            fetchCourses(); }
+        catch (err) { 
+            toast.error(err.response?.data?.message || 'Error.'); 
+        }
     };
 
     return (
