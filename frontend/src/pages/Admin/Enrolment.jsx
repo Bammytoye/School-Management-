@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import toast from 'react-hot-toast'
+import toast from 'react-toastify'
 import AdminLayout from '../../components/AdminLayout'
 import Modal from '../../components/Modal'
 import ConfirmModal from '../../components/ConfirmModal'
