@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import { enrolmentAPI } from '../../api/enrolmentAPI';
+import { enrolmentAPI } from '../../API/enrolmentAPI';
 
 const StatCard = ({ icon, label, value, color }) => (
     <div className="card flex items-center gap-4">
@@ -33,7 +33,7 @@ export default function Dashboard() {
                 <div className="flex flex-wrap gap-3 mt-3">
                     <a href="/admin/students" className="btn-primary text-sm">➕ Add Student</a>
                     <a href="/admin/courses" className="btn-primary text-sm">📚 Add Course</a>
-                    <a href="/admin/enrolments" className="btn-primary text-sm">📋 Manage Enrolments</a>
+                    <a href="/admin/enrolment" className="btn-primary text-sm">📋 Manage Enrolment</a>
                 </div>
             </div>
         </AdminLayout>

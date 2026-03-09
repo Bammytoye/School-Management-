@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/AdminLayout';
 import Modal from '../../components/Modal';
-import { gradesAPI } from '../../api/gradesAPI';
-import { courseAPI } from '../../api/courseAPI';
-import { enrolmentAPI } from '../../api/enrolmentAPI';
+import { gradesAPI } from '../../API/gradesAPI';
+import { courseAPI } from '../../API/courseAPI';
+import { enrolmentAPI } from '../../API/enrolmentAPI';
 
 const GRADE_COLORS = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-orange-100 text-orange-700', F: 'bg-red-100 text-red-700' };
 

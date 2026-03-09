@@ -1,10 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 const links = [
     { to: '/admin/dashboard', icon: '📊', label: 'Dashboard' },
     { to: '/admin/students', icon: '👥', label: 'Students' },
     { to: '/admin/courses', icon: '📚', label: 'Courses' },
-    { to: '/admin/enrolments', icon: '📋', label: 'Enrolments' },
+    { to: '/admin/enrolment', icon: '📋', label: 'Enrolment' },
+    { to: '/admin/grades', icon: '🎯', label: 'Grades' },
+    { to: '/admin/attendance', icon: '🗓️', label: 'Attendance' },
+    { to: '/profile', icon: '👤', label: 'My Profile' },
 ];
 
 export default function Sidebar() {

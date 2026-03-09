@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
-import { profileAPI } from '../api/profileAPI';
-import { useAuth } from '../context/AuthContext';
+import Navbar from '../../components/NavBar';
+import Sidebar from '../../components/SideBar';
+import { profileAPI } from '../../API/profileAPI';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Profile() {
     const { user: authUser, logout } = useAuth();

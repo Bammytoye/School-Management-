@@ -1,58 +1,71 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import Modal from '../../components/Modal';
-import { enrolmentAPI } from '../../api/enrolmentAPI';
-import { userAPI } from '../../api/userAPI';
-import { courseAPI } from '../../api/courseAPI';
-import { toast } from 'react-toastify'
+import { enrolmentAPI } from '../../API/enrolmentAPI.js';
+import { userAPI } from '../../API/userAPI';
+import { courseAPI } from '../../API/courseAPI';
+import { toast } from 'react-toastify';
 
-
-export default function Enrolments() {
+export default function Enrolment() {
     const [enrolments, setEnrolments] = useState([]);
-    const [students, setStudents] = useState([]);
-    const [courses, setCourses] = useState([]);
-    const [modal, setModal] = useState(false);
-    const [form, setForm] = useState({ user_id: '', course_id: '' });
-    const [error, setError] = useState('');
+    const [students, setStudents]     = useState([]);
+    const [courses, setCourses]       = useState([]);
+    const [loading, setLoading]       = useState(true);
+    const [modal, setModal]           = useState(false);
+    const [form, setForm]             = useState({ user_id: '', course_id: '' });
+    const [error, setError]           = useState('');
 
-    const fetch = async () => {
-        const [e, u, c] = await Promise.all([
-            enrolmentAPI.getAll(),
-            userAPI.getAll({ role: 'student', limit: 100 }),
-            courseAPI.getAll({ limit: 100 }),
-        ]);
-        setEnrolments(e.data.enrolments);
-        setStudents(u.data.users);
-        setCourses(c.data.courses);
+    const loadData = async () => {
+        setLoading(true);
+        try {
+            const [e, u, c] = await Promise.all([
+                enrolmentAPI.getAll(),
+                userAPI.getAll({ role: 'student', limit: 100 }),
+                courseAPI.getAll({ limit: 100 }),
+            ]);
+            setEnrolments(e.data.enrolments);
+            setStudents(u.data.users);
+            setCourses(c.data.courses);
+        } catch (err) {
+            console.error('Failed to load enrolment data:', err);
+            toast.error('Failed to load data. Please refresh the page.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
-        fetch()
+        loadData();
     }, []);
 
     const handleEnrol = async (e) => {
-        e.preventDefault(); setError('');
+        e.preventDefault();
+        setError('');
         try {
-            await enrolmentAPI.enrol({ 
-                user_id: parseInt(form.user_id), 
-                course_id: parseInt(form.course_id) 
+            await enrolmentAPI.enrol({
+                user_id: parseInt(form.user_id),
+                course_id: parseInt(form.course_id)
             });
-            toast.success('Student enrolled successfully!')
-            setModal(false) 
-            setForm({ user_id: '', course_id: '' }) 
-            fetch()
+            toast.success('Student enrolled successfully!');
+            setModal(false);
+            setForm({ user_id: '', course_id: '' });
+            loadData(); // ✅ FIXED: call loadData not fetch
         } catch (err) {
-            const msg = err.response?.data?.message || 'Error.'
-            setError(msg)
-            toast.error(msg)
+            const msg = err.response?.data?.message || 'Error enrolling student.';
+            setError(msg);
+            toast.error(msg);
         }
     };
 
     const handleRemove = async (id) => {
         if (!window.confirm('Remove this enrolment?')) return;
-        await enrolmentAPI.remove(id);
-        toast.success('Enrolment removed.')
-        fetch()
+        try {
+            await enrolmentAPI.remove(id);
+            toast.success('Enrolment removed.');
+            loadData(); 
+        } catch (err) {
+            toast.error('Failed to remove enrolment.');
+        }
     };
 
     return (
@@ -63,33 +76,37 @@ export default function Enrolments() {
             </div>
 
             <div className="card overflow-x-auto">
-                <table className="w-full text-sm">
-                    <thead>
-                        <tr className="border-b border-gray-200 text-left text-gray-500 uppercase text-xs">
-                            <th className="pb-3 pr-4">Student</th>
-                            <th className="pb-3 pr-4">Email</th>
-                            <th className="pb-3 pr-4">Course</th>
-                            <th className="pb-3 pr-4">Enrolled On</th>
-                            <th className="pb-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {enrolments.map((e) => (
-                            <tr key={e.id} className="border-b border-gray-100 hover:bg-gray-50">
-                                <td className="py-3 pr-4 font-medium text-gray-800">{e.student_name}</td>
-                                <td className="py-3 pr-4 text-gray-500">{e.email}</td>
-                                <td className="py-3 pr-4 text-gray-700">{e.course_title}</td>
-                                <td className="py-3 pr-4 text-gray-500">{new Date(e.enrolled_at).toLocaleDateString()}</td>
-                                <td className="py-3">
-                                    <button onClick={() => handleRemove(e.id)} className="text-red-500 hover:underline text-xs font-medium">Remove</button>
-                                </td>
+                {loading ? (
+                    <div className="text-center py-10 text-gray-400">Loading...</div>
+                ) : (
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="border-b border-gray-200 text-left text-gray-500 uppercase text-xs">
+                                <th className="pb-3 pr-4">Student</th>
+                                <th className="pb-3 pr-4">Email</th>
+                                <th className="pb-3 pr-4">Course</th>
+                                <th className="pb-3 pr-4">Enrolled On</th>
+                                <th className="pb-3">Action</th>
                             </tr>
-                        ))}
-                        {enrolments.length === 0 && (
-                            <tr><td colSpan={5} className="py-10 text-center text-gray-400">No enrolments yet.</td></tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {enrolments.map((en) => (
+                                <tr key={en.id} className="border-b border-gray-100 hover:bg-gray-50">
+                                    <td className="py-3 pr-4 font-medium text-gray-800">{en.student_name}</td>
+                                    <td className="py-3 pr-4 text-gray-500">{en.email}</td>
+                                    <td className="py-3 pr-4 text-gray-700">{en.course_title}</td>
+                                    <td className="py-3 pr-4 text-gray-500">{new Date(en.enrolled_at).toLocaleDateString()}</td>
+                                    <td className="py-3">
+                                        <button onClick={() => handleRemove(en.id)} className="text-red-500 hover:underline text-xs font-medium">Remove</button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {enrolments.length === 0 && (
+                                <tr><td colSpan={5} className="py-10 text-center text-gray-400">No enrolments yet.</td></tr>
+                            )}
+                        </tbody>
+                    </table>
+                )}
             </div>
 
             <Modal isOpen={modal} onClose={() => setModal(false)} title="Enrol Student in Course">

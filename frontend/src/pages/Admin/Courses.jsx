@@ -3,7 +3,7 @@ import AdminLayout from '../../components/AdminLayout';
 import Modal from '../../components/Modal';
 import SearchBar from '../../components/SearchBar';
 import Pagination from '../../components/Pagination';
-import { courseAPI } from '../../api/courseAPI';
+import { courseAPI } from '../../API/courseAPI';
 import { toast } from 'react-toastify'
 
 const EMPTY = { title: '', description: '' };

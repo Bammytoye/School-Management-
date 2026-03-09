@@ -3,7 +3,7 @@ import AdminLayout from '../../components/AdminLayout';
 import Modal from '../../components/Modal';
 import SearchBar from '../../components/SearchBar';
 import Pagination from '../../components/Pagination';
-import { userAPI } from '../../api/userAPI';
+import { userAPI } from '../../API/userAPI';
 import { toast } from 'react-toastify'
 
 const EMPTY = { name: '', email: '', password: '', role: 'student' };
