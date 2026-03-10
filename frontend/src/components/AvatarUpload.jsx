@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import api from '../API/axios';
+import api from '../API/api';
 
 export default function AvatarUpload({ user, onUpdate }) {
     const inputRef = useRef(null);

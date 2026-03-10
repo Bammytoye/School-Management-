@@ -10,7 +10,7 @@ import Tooltip from '../../components/Tooltip'
 import useCountUp from '../../hooks/UseCountUp'
 import { enrolmentAPI } from '../../API/enrolmentAPI'
 import { useAuth } from '../../context/AuthContext'
-import api from '../../API/axios'
+import api from '../../API/api'
 
 // ── Animated Stat Card ──────────────────────────────────────────────────────
 function StatCard({ icon, label, value, color, to, hint }) {

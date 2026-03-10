@@ -30,7 +30,7 @@ export default function Profile() {
             const res = await profileAPI.update({ name: profile.name, email: profile.email })
             const updated = { ...profile, ...res.data.user }
             setProfile(updated)
-            updateUser(updated)  // ← sync navbar too
+            updateUser(updated)  // sync navbar
             toast.success('Profile updated!')
         } catch (err) {
             toast.error(err.response?.data?.message || 'Error updating profile.')
@@ -62,19 +62,29 @@ export default function Profile() {
     // Called by AvatarUpload after upload or remove
     const handleAvatarUpdate = (updatedUser) => {
         const merged = { ...profile, ...updatedUser };
-        setProfile(merged);    // updates profile page avatar
-        updateUser(merged);    // updates navbar avatar
+        setProfile(merged);    
+        updateUser(merged);    
     };
 
     const content = (
         <div className="max-w-2xl mx-auto">
+            {/* ── Back Button ── */}
+            <div className="mb-4">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-gray-700 hover:underline"
+                >
+                    ← Back
+                </button>
+            </div>
+
             <Breadcrumb />
 
             {/* ── Header with Avatar ── */}
             <div className="card mb-6">
                 <AvatarUpload
                     user={profile}
-                    onUpdate={handleAvatarUpdate} // sync Profile + Navbar
+                    onUpdate={handleAvatarUpdate} 
                 />
                 <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                     <h1 className="text-xl font-bold text-gray-800 dark:text-white">{profile.name}</h1>

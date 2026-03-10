@@ -1,4 +1,4 @@
-import api from './axios';
+import api from "./api";
 
 export const gradesAPI = {
     getAll: (params) => api.get('/grades', { params }),

@@ -1,4 +1,4 @@
-import api from './axios';
+import api from "./api";
 
 export const userAPI = {
     getAll: (params) => api.get('/users', { params }),

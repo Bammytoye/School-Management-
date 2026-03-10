@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './api';
 
 export const enrolmentAPI = {
     enrol: (data) => api.post('/enrolments', data),
