@@ -8,7 +8,10 @@ export default function AdminLayout({ children }) {
             <Navbar />
             <div className="flex flex-1">
                 <Sidebar />
-                <main className="flex-1 p-6 overflow-auto">
+                <main className="flex-1 overflow-auto
+                    p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 2xl:p-10
+                    min-w-0
+                ">
                     <Breadcrumb />
                     {children}
                 </main>

@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react'
-import toast from 'react-hot-toast'
+import { toast } from 'react-toastify'
+import { FiArrowLeft, FiPlus, FiTrash2, FiUserCheck } from 'react-icons/fi'
+import { FaChalkboardTeacher } from 'react-icons/fa'
+import { MdOutlinePersonAdd } from 'react-icons/md'
 import AdminLayout from '../../components/AdminLayout'
-import Modal from '../../components/Modal'
 import ConfirmModal from '../../components/ConfirmModal'
 import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'
-import { enrolmentAPI } from '../../api/enrolmentAPI'
-import { userAPI } from '../../api/userAPI'
-import { courseAPI } from '../../api/courseAPI'
+import { enrolmentAPI } from '../../API/enrolmentAPI'
+import { userAPI } from '../../API/userAPI'
+import { courseAPI } from '../../API/courseAPI'
+import { useNavigate } from 'react-router-dom'
 
 export default function Enrolments() {
+    const navigate = useNavigate()
+
     const [enrolments, setEnrolments] = useState([])
     const [students, setStudents] = useState([])
     const [courses, setCourses] = useState([])
@@ -66,20 +71,41 @@ export default function Enrolments() {
 
     return (
         <AdminLayout>
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Enrolments</h1>
-                <button onClick={() => { setModal(true); setError('') }} className="btn-primary">➕ Enrol Student</button>
+
+            {/* Back button */}
+            <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-1.5 text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline mb-3 sm:mb-4"
+            >
+                <FiArrowLeft className="flex-shrink-0" />
+                Back
+            </button>
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6 lg:mb-8">
+                <h1 className="flex items-center gap-2 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white">
+                    <FiUserCheck className="text-blue-500 flex-shrink-0" />
+                    Enrolments
+                </h1>
+                <button
+                    onClick={() => { setModal(true); setError('') }}
+                    className="btn-primary flex items-center gap-1.5 text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2.5"
+                >
+                    <FiPlus className="flex-shrink-0" />
+                    <span className="hidden sm:inline">Enrol Student</span>
+                    <span className="sm:hidden">Enrol</span>
+                </button>
             </div>
 
+            {/* Table */}
             <div className="card overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-xs sm:text-sm min-w-[480px]">
                     <thead>
                         <tr className="border-b border-gray-200 dark:border-gray-700 text-left text-gray-500 dark:text-gray-400 uppercase text-xs">
-                            <th className="pb-3 pr-4">Student</th>
-                            <th className="pb-3 pr-4">Email</th>
-                            <th className="pb-3 pr-4">Course</th>
-                            <th className="pb-3 pr-4">Enrolled On</th>
-                            <th className="pb-3">Action</th>
+                            <th className="pb-2 sm:pb-3 pr-3 sm:pr-4 whitespace-nowrap">Student</th>
+                            <th className="pb-2 sm:pb-3 pr-3 sm:pr-4 whitespace-nowrap hidden sm:table-cell">Email</th>
+                            <th className="pb-2 sm:pb-3 pr-3 sm:pr-4 whitespace-nowrap">Course</th>
+                            <th className="pb-2 sm:pb-3 pr-3 sm:pr-4 whitespace-nowrap hidden md:table-cell">Enrolled On</th>
+                            <th className="pb-2 sm:pb-3 whitespace-nowrap">Action</th>
                         </tr>
                     </thead>
                     {loading ? (
@@ -88,12 +114,34 @@ export default function Enrolments() {
                         <tbody>
                             {enrolments.map((en) => (
                                 <tr key={en.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                    <td className="py-3 pr-4 font-medium text-gray-800 dark:text-gray-100">{en.student_name}</td>
-                                    <td className="py-3 pr-4 text-gray-500 dark:text-gray-400">{en.email}</td>
-                                    <td className="py-3 pr-4 text-gray-700 dark:text-gray-300">{en.course_title}</td>
-                                    <td className="py-3 pr-4 text-gray-500 dark:text-gray-400">{new Date(en.enrolled_at).toLocaleDateString()}</td>
-                                    <td className="py-3">
-                                        <button onClick={() => setConfirmDelete(en)} className="text-red-500 hover:underline text-xs font-medium">Remove</button>
+                                    {/* Student + email subtitle on mobile */}
+                                    <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">
+                                        <div>{en.student_name}</div>
+                                        <div className="sm:hidden text-xs text-gray-400 dark:text-gray-500 mt-0.5 font-normal">
+                                            {en.email}
+                                        </div>
+                                    </td>
+                                    {/* Email — hidden on mobile */}
+                                    <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 hidden sm:table-cell">
+                                        {en.email}
+                                    </td>
+                                    {/* Course */}
+                                    <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-700 dark:text-gray-300 max-w-[120px] sm:max-w-[180px] truncate">
+                                        {en.course_title}
+                                    </td>
+                                    {/* Enrolled date — hidden on mobile */}
+                                    <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 whitespace-nowrap hidden md:table-cell">
+                                        {new Date(en.enrolled_at).toLocaleDateString()}
+                                    </td>
+                                    {/* Remove */}
+                                    <td className="py-2.5 sm:py-3">
+                                        <button
+                                            onClick={() => setConfirmDelete(en)}
+                                            className="flex items-center gap-1 text-red-500 hover:text-red-700 text-xs font-medium transition-colors"
+                                        >
+                                            <FiTrash2 className="flex-shrink-0" />
+                                            <span className="hidden sm:inline">Remove</span>
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -113,29 +161,58 @@ export default function Enrolments() {
             </div>
 
             {/* Enrol Modal */}
-            <Modal isOpen={modal} onClose={() => setModal(false)} title="Enrol Student in Course">
-                <form onSubmit={handleEnrol} className="space-y-3">
-                    {error && <p className="text-red-500 text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>}
+            <ConfirmModal isOpen={modal} onClose={() => setModal(false)} title="Enrol Student in Course">
+                <form onSubmit={handleEnrol} className="space-y-3 sm:space-y-4">
+                    {error && (
+                        <p className="text-red-500 text-xs sm:text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">
+                            {error}
+                        </p>
+                    )}
                     <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Select Student</label>
-                        <select required value={form.user_id} onChange={(e) => setForm({ ...form, user_id: e.target.value })} className="input mt-1">
+                        <label className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            <MdOutlinePersonAdd className="text-blue-500 flex-shrink-0" />
+                            Select Student
+                        </label>
+                        <select
+                            required
+                            value={form.user_id}
+                            onChange={(e) => setForm({ ...form, user_id: e.target.value })}
+                            className="input mt-1 text-sm w-full max-w-xs"
+                        >
                             <option value="">— Choose student —</option>
-                            {students.map((s) => <option key={s.id} value={s.id}>{s.name} ({s.email})</option>)}
+                            {students.map((s) => (
+                                <option key={s.id} value={s.id}>{s.name} ({s.email})</option>
+                            ))}
                         </select>
                     </div>
                     <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Select Course</label>
-                        <select required value={form.course_id} onChange={(e) => setForm({ ...form, course_id: e.target.value })} className="input mt-1">
+                        <label className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            <FaChalkboardTeacher className="text-blue-500 flex-shrink-0" />
+                            Select Course
+                        </label>
+                        <select
+                            required
+                            value={form.course_id}
+                            onChange={(e) => setForm({ ...form, course_id: e.target.value })}
+                            className="input mt-1 text-sm w-full max-w-xs"
+                        >
                             <option value="">— Choose course —</option>
-                            {courses.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+                            {courses.map((c) => (
+                                <option key={c.id} value={c.id}>{c.title}</option>
+                            ))}
                         </select>
                     </div>
-                    <div className="flex gap-3 pt-2">
-                        <button type="submit" className="btn-primary flex-1">Enrol</button>
-                        <button type="button" onClick={() => setModal(false)} className="btn-secondary flex-1">Cancel</button>
+                    <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
+                        <button type="submit" className="btn-primary flex-1 flex items-center justify-center gap-1.5 text-sm sm:text-base">
+                            <FiUserCheck className="flex-shrink-0" />
+                            Enrol
+                        </button>
+                        <button type="button" onClick={() => setModal(false)} className="btn-secondary flex-1 flex items-center justify-center gap-1.5 text-sm sm:text-base">
+                            Cancel
+                        </button>
                     </div>
                 </form>
-            </Modal>
+            </ConfirmModal>
 
             {/* Remove Confirm */}
             <ConfirmModal

@@ -1,6 +1,7 @@
+import { FiCheck, FiCircle } from 'react-icons/fi'
+
 const getStrength = (password) => {
     if (!password) return { score: 0, label: '', color: '' }
-
     let score = 0
     const checks = {
         length: password.length >= 8,
@@ -10,7 +11,6 @@ const getStrength = (password) => {
         special: /[^A-Za-z0-9]/.test(password),
         longEnough: password.length >= 12,
     }
-
     score += checks.length ? 1 : 0
     score += checks.upper ? 1 : 0
     score += checks.lower ? 1 : 0
@@ -37,27 +37,27 @@ export default function PasswordStrength({ password }) {
     ]
 
     return (
-        <div className="mt-2 space-y-2">
+        <div className="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2">
+
             {/* Strength bar */}
-            <div className="flex items-center gap-2">
-                <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                        className={`h-full rounded-full transition-all duration-300 ${strength.color} ${strength.width}`}
-                    />
+            <div className="flex items-center gap-2 sm:gap-3">
+                <div className="flex-1 h-1.5 sm:h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full transition-all duration-300 ${strength.color} ${strength.width}`} />
                 </div>
-                <span className={`text-xs font-medium ${strength.text}`}>
+                <span className={`text-xs sm:text-sm font-semibold w-10 sm:w-12 text-right ${strength.text}`}>
                     {strength.label}
                 </span>
             </div>
 
             {/* Hints */}
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-1.5">
                 {hints.map((hint) => (
-                    <div key={hint.label} className="flex items-center gap-1.5">
-                        <span className={`text-xs ${hint.pass ? 'text-green-500' : 'text-gray-400 dark:text-gray-600'}`}>
-                            {hint.pass ? '✓' : '○'}
-                        </span>
-                        <span className={`text-xs ${hint.pass ? 'text-gray-600 dark:text-gray-300' : 'text-gray-400 dark:text-gray-600'}`}>
+                    <div key={hint.label} className="flex items-center gap-1 sm:gap-1.5">
+                        {hint.pass
+                            ? <FiCheck className="text-green-500 text-xs sm:text-sm flex-shrink-0" />
+                            : <FiCircle className="text-gray-400 dark:text-gray-600 text-xs sm:text-sm flex-shrink-0" />
+                        }
+                        <span className={`text-xs sm:text-xs lg:text-sm ${hint.pass ? 'text-gray-600 dark:text-gray-300' : 'text-gray-400 dark:text-gray-600'}`}>
                             {hint.label}
                         </span>
                     </div>

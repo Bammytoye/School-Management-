@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 export default function NotFound() {
     const { user } = useAuth()
     const navigate = useNavigate()
-    const home = user?.role === 'admin' ? '/admin/dashboard' : user ? '/my-courses' : '/login'
+    const home = user?.role === 'admin' ? '/login' : user ? '/my-courses' : '/'
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-10 transition-colors">
