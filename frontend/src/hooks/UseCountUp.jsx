@@ -1,30 +1,26 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useEffect } from "react";
 
-export default function UseCountUp(target, duration = 1200) {
-    const [count, setCount] = useState(0)
-    const startTime = useRef(null)
-    const rafRef    = useRef(null)
+export default function UseCountUp(target, duration = 1600, start = false) {
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
-        if (target === null || target === undefined) return
+        if (!start) return;
 
-        const end = parseInt(target, 10)
-        if (isNaN(end)) return
-
-        startTime.current = null
-
+        let startTime;
         const step = (timestamp) => {
-            if (!startTime.current) startTime.current = timestamp
-            const progress = Math.min((timestamp - startTime.current) / duration, 1)
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3)
-            setCount(Math.floor(eased * end))
-            if (progress < 1) rafRef.current = requestAnimationFrame(step)
-        }
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const progressRatio = Math.min(progress / duration, 1);
+            setCount(Math.floor(target * progressRatio));
+            if (progress < duration) {
+                requestAnimationFrame(step);
+            } else {
+                setCount(target); // ensure it reaches the exact target
+            }
+        };
 
-        rafRef.current = requestAnimationFrame(step)
-        return () => cancelAnimationFrame(rafRef.current)
-    }, [target, duration])
+        requestAnimationFrame(step);
+    }, [target, duration, start]);
 
-    return count
+    return count;
 }
