@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, } from 'react';
-import { authAPI } from '../api/authAPI';
+import { createContext, useContext, useState } from 'react';
+import { authAPI } from '../API/authAPI';
 
 const AuthContext = createContext(null);
 
@@ -17,7 +17,7 @@ const getStoredUser = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(getStoredUser);
-    const [loading] = useState(false); 
+    const [loading] = useState(false);
 
     const login = async (email, password) => {
         const res = await authAPI.login({ email, password });
@@ -34,8 +34,17 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    // Merge updated fields to keep old data intact
+    const updateUser = (updatedFields) => {
+        setUser(prev => {
+            const merged = { ...prev, ...updatedFields };
+            localStorage.setItem('user', JSON.stringify(merged));
+            return merged;
+        });
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

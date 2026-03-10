@@ -7,7 +7,7 @@ import {
 import AdminLayout from '../../components/AdminLayout'
 import { StatCardSkeleton } from '../../components/Skeleton'
 import Tooltip from '../../components/Tooltip'
-import useCountUp from '../../components/UseCountUp'
+import useCountUp from '../../hooks/UseCountUp'
 import { enrolmentAPI } from '../../API/enrolmentAPI'
 import { useAuth } from '../../context/AuthContext'
 import api from '../../API/axios'

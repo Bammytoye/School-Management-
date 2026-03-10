@@ -5,12 +5,14 @@ import pool from '../config/DB.js';
 const getProfile = async (req, res, next) => {
     try {
         const result = await pool.query(
-            'SELECT id, name, email, role, created_at FROM users WHERE id = $1',
+            'SELECT id, name, email, role, created_at, avatar_url FROM users WHERE id = $1',
             [req.user.id]
         );
         if (!result.rows[0]) return res.status(404).json({ message: 'User not found.' });
         res.json({ success: true, user: result.rows[0] });
-    } catch (err) { next(err); }
+    } catch (err) {
+        next(err);
+    }
 };
 
 // PUT /api/profile

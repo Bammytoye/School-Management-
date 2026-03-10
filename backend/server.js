@@ -13,7 +13,6 @@ import  courseRouter from './routes/courseRoutes.js'
 import  enrolmentRouter from './routes/enrolmentRoutes.js'  
 import profileRoutes from './routes/profileRoutes.js'
 import gradesRoutes  from './routes/gradesRoutes.js'  
-import pool from './config/DB.js'
 import avatarRouter      from './routes/avatarRoutes.js'
 import dashboardRouter   from './routes/dashboardRoutes.js'
 
@@ -30,7 +29,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // ── Health check ──
 app.get('/', (req, res) => {

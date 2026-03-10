@@ -3,6 +3,7 @@ import { ProtectedRoute, RoleRoute } from './components/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
+import HomePage from './pages/HomePage/HomePage'   
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Admin/Dashboard'
@@ -13,25 +14,18 @@ import MyCourses from './pages/Students/MyCourses'
 import Attendance from './pages/Admin/Attendance';
 import Grades from './pages/Admin/Grades';
 import Profile from './pages/Admin/Profile';
-import { AnimatePresence } from 'framer-motion';
 import NotFound from './pages/NotFound';
+import { AnimatePresence } from 'framer-motion';
 
 function AnimatedRoutes() {
     const location = useLocation()
-  return (
-    <div className='mx-4'>
-      <ToastContainer
-        position="top-right"
-        toastOptions={{
-          duration: 3000,
-          style: { fontSize: '0.875rem', borderRadius: '10px', fontFamily: 'inherit' },
-          success: { iconTheme: { primary: '#22c55e', secondary: '#fff' } },
-          error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
-        }}
-      />
-      <AnimatePresence mode="wait">
+
+    return (
+        <div className='mx-4'>
+            <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                {/* Public */}
+                {/* ✅ Public homepage */}
+                <Route path="/"         element={<HomePage />} />
                 <Route path="/login"    element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
@@ -49,15 +43,12 @@ function AnimatedRoutes() {
                 {/* Shared */}
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
-                {/* Default */}
-                <Route path="/" element={<Navigate to="/login" replace />} />
-
                 {/* 404 */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </AnimatePresence>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default AnimatedRoutes
