@@ -2,10 +2,10 @@ import pool from '../config/DB.js'
 
 //  GRADES 
 const getLetterGrade = (score) => {
-    if (score >= 90) return 'A';
-    if (score >= 80) return 'B';
-    if (score >= 70) return 'C';
-    if (score >= 60) return 'D';
+    if (score >= 70) return 'A';
+    if (score >= 59) return 'B';
+    if (score >= 49) return 'C';
+    if (score >= 39) return 'D';
     return 'F';
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import toast from 'react-toastify'
+import toast from 'react-hot-toast'
 import Navbar from '../../components/NavBar'
 import Sidebar from '../../components/SideBar'
 import Breadcrumb from '../../components/Breadcrumb'

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import toast from 'react-toastify'
+import toast from 'react-hot-toast'
 import AdminLayout from '../../components/AdminLayout'
 import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'

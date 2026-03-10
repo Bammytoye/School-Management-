@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import toast from 'react-toastify'
+import toast from 'react-hot-toast'
 import AdminLayout from '../../components/AdminLayout'
 import Modal from '../../components/Modal'
 import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'
 import { gradesAPI } from '../../api/gradesAPI'
-import { courseAPI } from '../../api/courseAPI'
-import { enrolmentAPI } from '../../api/enrolmentAPI'
+import { courseAPI } from '../../API/courseAPI'
+import { enrolmentAPI } from '../../API/enrolmentAPI'
 
 const GRADE_COLORS = {
     A: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
@@ -17,13 +17,13 @@ const GRADE_COLORS = {
 }
 
 export default function Grades() {
-    const [courses, setCourses] = useState([])
-    const [selectedCourse, setSC] = useState('')
+    const [courses, setCourses]       = useState([])
+    const [selectedCourse, setSC]     = useState('')
     const [enrolments, setEnrolments] = useState([])
-    const [grades, setGrades] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [modal, setModal] = useState(null)
-    const [form, setForm] = useState({ user_id: '', course_id: '', score: '', remarks: '' })
+    const [grades, setGrades]         = useState([])
+    const [loading, setLoading]       = useState(false)
+    const [modal, setModal]           = useState(null)
+    const [form, setForm]             = useState({ user_id: '', course_id: '', score: '', remarks: '' })
 
     useEffect(() => {
         courseAPI.getAll({ limit: 100 }).then((r) => setCourses(r.data.courses))
