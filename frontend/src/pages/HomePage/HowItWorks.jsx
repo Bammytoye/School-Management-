@@ -20,27 +20,27 @@ export default function HowItWorks() {
 
                 {/* Steps Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
-                    {steps.map((s, i) => (
-                        <div key={s.step} className="relative text-center group">
+                    {steps.map((stepOne, index) => (
+                        <div key={stepOne.step} className="relative text-center group">
                             {/* Connector line for steps 1 and 2 */}
-                            {i < 2 && (
+                            {index < 2 && (
                                 <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-blue-200 to-transparent dark:from-blue-800 -translate-y-1/2 z-0" />
                             )}
 
                             <div className="relative z-10">
                                 {/* Icon */}
                                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-white dark:bg-gray-900 border-2 border-blue-100 dark:border-blue-900 shadow-lg flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    {s.icon}
+                                    {stepOne.icon}
                                 </div>
 
                                 {/* Step Number */}
-                                <div className="text-xs sm:text-sm md:text-base font-black text-blue-500 tracking-widest mb-2 sm:mb-3">STEP {s.step}</div>
+                                <div className="text-xs sm:text-sm md:text-base font-black text-blue-500 tracking-widest mb-2 sm:mb-3">STEP {stepOne.step}</div>
 
                                 {/* Title */}
-                                <h3 className="font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 text-base sm:text-lg md:text-xl">{s.title}</h3>
+                                <h3 className="font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 text-base sm:text-lg md:text-xl">{stepOne.title}</h3>
 
                                 {/* Description */}
-                                <p className="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400 leading-relaxed">{s.desc}</p>
+                                <p className="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400 leading-relaxed">{stepOne.desc}</p>
                             </div>
                         </div>
                     ))}

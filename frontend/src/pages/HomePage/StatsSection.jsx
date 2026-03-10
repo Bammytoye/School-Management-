@@ -35,8 +35,8 @@ export default function StatsSection() {
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-                    {stats.map((s, i) => (
-                        <StatCard key={s.label} {...s} index={i} start={statsVisible} />
+                    {stats.map((stat, index) => (
+                        <StatCard key={stat.label} {...stat} index={index} start={statsVisible} />
                     ))}
                 </div>
             </div>

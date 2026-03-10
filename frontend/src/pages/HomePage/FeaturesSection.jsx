@@ -26,8 +26,8 @@ export default function FeaturesSection() {
 
                 {/* Feature Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-5 sm:gap-6 md:gap-7 lg:gap-8 xl:gap-10">
-                    {features.map((f, i) => (
-                        <FeatureCard key={f.title} {...f} index={i} />
+                    {features.map((feature, index) => (
+                        <FeatureCard key={feature.title} {...feature} index={index} />
                     ))}
                 </div>
             </div>

@@ -26,6 +26,7 @@ export default function FeatureCard({ title, desc, index }) {
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-2xl sm:text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
                 {iconMap[title]}
             </div>
+            
             <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-sm sm:text-base lg:text-lg">{title}</h3>
             <p className="text-xs sm:text-sm lg:text-base text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
         </div>

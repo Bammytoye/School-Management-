@@ -10,11 +10,11 @@ export default function CTASection() {
                 <p className="text-blue-100 text-lg mb-10">Join schools already using SchoolMS to manage students, courses, and more.</p>
                 <div className="flex items-center justify-center gap-4 flex-wrap">
                     <Link to="/register"
-                        className="px-8 py-4 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-colors shadow-xl text-base hover:scale-105 duration-200 inline-block">
+                        className="px-8 py-3 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-colors shadow-xl text-base hover:scale-105 duration-200 inline-block">
                         Create Free Account →
                     </Link>
                     <Link to="/login"
-                        className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/20 transition-colors text-base inline-block">
+                        className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/20 transition-colors text-base inline-block">
                         Sign In
                     </Link>
                 </div>

@@ -35,34 +35,34 @@ export default function Testimonials() {
 
                 {/* Testimonials grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
-                    {testimonials.map((t) => (
+                    {testimonials.map((test) => (
                         <div
-                            key={t.name}
+                            key={test.name}
                             className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300"
                         >
                             {/* Star rating */}
                             <div className="flex gap-0.5 mb-4">
-                                {[...Array(5)].map((_, j) => (
-                                    <span key={j} className="text-yellow-400 text-sm">★</span>
+                                {[...Array(5)].map((none, star) => (
+                                    <span key={star} className="text-yellow-400 text-sm">★</span>
                                 ))}
                             </div>
 
                             {/* Testimonial text */}
                             <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed mb-5">
-                                "{t.text}"
+                                "{test.text}"
                             </p>
 
                             {/* Avatar and user info */}
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0">
-                                    {t.avatar}
+                                    {test.avatar}
                                 </div>
                                 <div>
                                     <p className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">
-                                        {t.name}
+                                        {test.name}
                                     </p>
                                     <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                                        {t.role}
+                                        {test.role}
                                     </p>
                                 </div>
                             </div>
