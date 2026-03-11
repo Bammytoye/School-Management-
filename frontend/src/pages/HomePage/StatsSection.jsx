@@ -1,4 +1,4 @@
-import { useVisible } from "../../hooks/useVisible";
+import { useVisible } from "../../hooks/UseVisible";
 import StatCard from "./StatCard";
 
 export default function StatsSection() {
