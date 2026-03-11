@@ -26,8 +26,8 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
 app.use(cors({
     origin: [
-        'https://schoolmanagement-omega-ten.vercel.app/',
-        'http://localhost:5173'  
+        'http://localhost:5173',  
+        'https://schoolmanagement-omega-ten.vercel.app'
     ]
 }));
 app.use(morgan('dev'))
