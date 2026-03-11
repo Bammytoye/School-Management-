@@ -10,6 +10,7 @@ import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'
 import { userAPI } from '../../API/userAPI'
 import { useNavigate } from 'react-router-dom'
+import Modal from '../../components/Modal'   
 
 const EMPTY = { name: '', email: '', password: '', role: 'student' }
 
@@ -52,6 +53,7 @@ export default function Students() {
             toast.success('Student created!')
             closeModal(); fetchUsers()
         } catch (err) {
+            console.log('Full error:', err.response)   
             const msg = err.response?.data?.message || 'Error creating student.'
             setError(msg); toast.error(msg)
         }
@@ -153,8 +155,8 @@ export default function Students() {
                                         {/* Role badge — md+ */}
                                         <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 hidden md:table-cell">
                                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${u.role === 'admin'
-                                                    ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
-                                                    : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                                                ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+                                                : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
                                                 }`}>
                                                 {u.role}
                                             </span>
@@ -203,7 +205,7 @@ export default function Students() {
             </div>
 
             {/* Add Modal */}
-            <ConfirmModal isOpen={modal === 'add'} onClose={closeModal} title="Add New Student">
+            <Modal isOpen={modal === 'add'} onClose={closeModal} title="Add New Student">
                 <form onSubmit={handleAdd} className="space-y-3 sm:space-y-4">
                     {error && <p className="text-red-500 text-xs sm:text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>}
                     <div>
@@ -242,10 +244,10 @@ export default function Students() {
                         </button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
 
             {/* Edit Modal */}
-            <ConfirmModal isOpen={modal === 'edit'} onClose={closeModal} title={`Edit — ${selected?.name}`}>
+            <Modal isOpen={modal === 'edit'} onClose={closeModal} title={`Edit — ${selected?.name}`}>
                 <form onSubmit={handleEdit} className="space-y-3 sm:space-y-4">
                     {error && <p className="text-red-500 text-xs sm:text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>}
                     <div>
@@ -278,7 +280,7 @@ export default function Students() {
                         </button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
 
             {/* Delete Confirm */}
             <ConfirmModal

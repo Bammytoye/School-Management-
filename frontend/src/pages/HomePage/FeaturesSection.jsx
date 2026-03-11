@@ -3,8 +3,8 @@ import FeatureCard from './FeatureCard'
 const features = [
     { title: 'Student Management', desc: 'Register, search, and manage all students with role-based access control and detailed profiles.' },
     { title: 'Course Catalogue', desc: 'Create and organise courses, assign instructors, and manage course materials in one place.' },
-    { title: 'Smart Enrolments', desc: 'Bulk-enrol students into courses, track enrolment history, and manage capacity effortlessly.' },
-    { title: 'Grades & Assessment', desc: 'Record scores, auto-calculate letter grades (A–F), and add remarks for every student.' },
+    { title: 'Smart Enrolment', desc: 'Bulk-enrol students into courses, track enrolment history, and manage capacity effortlessly.' },
+    { title: 'Grades & Assessment', desc: 'Record scores, auto-calculate letter grades (A - F), and add remarks for every student.' },
     { title: 'Attendance Tracking', desc: 'Mark present, absent, or late per session. View summaries and spot patterns instantly.' },
     { title: 'Analytics Dashboard', desc: 'Live charts for enrolments over time, grade distribution, top courses, and attendance rates.' },
 ]
@@ -20,7 +20,7 @@ export default function FeaturesSection() {
                         Everything you need to run your school
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg max-w-xl sm:max-w-2xl mx-auto">
-                        Built for administrators, teachers and students. No complexity, no clutter — just what matters.
+                        Built for administrators, teachers, and students. No complexity, just a powerful system that helps you manage classes, track attendance, monitor performance, and run your school smoothly.
                     </p>
                 </div>
 

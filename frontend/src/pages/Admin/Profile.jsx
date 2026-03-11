@@ -12,13 +12,13 @@ import { useAuth } from '../../context/AuthContext'
 export default function Profile() {
     const { user: authUser, logout, updateUser } = useAuth()
     const navigate = useNavigate()
-    const isAdmin  = authUser?.role === 'admin'
+    const isAdmin = authUser?.role === 'admin'
 
-    const [profile, setProfile]    = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
-    const [pwForm, setPwForm]       = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
-    const [loadingProfile, setLP]  = useState(false)
-    const [loadingPw, setLPw]      = useState(false)
-    const [tab, setTab]            = useState('profile')
+    const [profile, setProfile] = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
+    const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+    const [loadingProfile, setLP] = useState(false)
+    const [loadingPw, setLPw] = useState(false)
+    const [tab, setTab] = useState('profile')
 
     useEffect(() => {
         profileAPI.get().then((res) => setProfile(res.data.user))
@@ -27,7 +27,7 @@ export default function Profile() {
     const handleProfileSave = async (e) => {
         e.preventDefault(); setLP(true)
         try {
-            const res     = await profileAPI.update({ name: profile.name, email: profile.email })
+            const res = await profileAPI.update({ name: profile.name, email: profile.email })
             const updated = { ...profile, ...res.data.user }
             setProfile(updated)
             updateUser(updated)
@@ -47,7 +47,7 @@ export default function Profile() {
         try {
             await profileAPI.changePassword({
                 currentPassword: pwForm.currentPassword,
-                newPassword:     pwForm.newPassword,
+                newPassword: pwForm.newPassword,
             })
             toast.success('Password changed! Logging you out...')
             setTimeout(() => { logout(); navigate('/login') }, 1500)
@@ -60,12 +60,12 @@ export default function Profile() {
     }
 
     const handleAvatarUpdate = (updatedUser) => {
+        // console.log('handleAvatarUpdate called with:', updatedUser) 
         const merged = { ...profile, ...updatedUser }
         setProfile(merged)
-        updateUser(merged)
+        updateUser(merged)  
     }
 
-    // ── Shared inner content (no layout wrapper here) ──
     const content = (
         <div className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
 
@@ -94,17 +94,16 @@ export default function Profile() {
             {/* Tabs */}
             <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-4 sm:mb-5 md:mb-6 w-fit">
                 {[
-                    { key: 'profile',  label: 'Profile',  icon: <FiUser className="flex-shrink-0" /> },
+                    { key: 'profile', label: 'Profile', icon: <FiUser className="flex-shrink-0" /> },
                     { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
                 ].map((t) => (
                     <button
                         key={t.key}
                         onClick={() => setTab(t.key)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
-                            tab === t.key
+                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${tab === t.key
                                 ? 'bg-white dark:bg-gray-700 shadow text-gray-800 dark:text-white'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
-                        }`}
+                            }`}
                     >
                         {t.icon}
                         {t.label}
@@ -210,12 +209,11 @@ export default function Profile() {
                                 required
                             />
                             {pwForm.confirmPassword && (
-                                <p className={`flex items-center gap-1 text-xs mt-1 ${
-                                    pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'
-                                }`}>
+                                <p className={`flex items-center gap-1 text-xs mt-1 ${pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'
+                                    }`}>
                                     {pwForm.newPassword === pwForm.confirmPassword
                                         ? <><FiCheck className="flex-shrink-0" /> Passwords match</>
-                                        : <><FiX     className="flex-shrink-0" /> Passwords do not match</>
+                                        : <><FiX className="flex-shrink-0" /> Passwords do not match</>
                                     }
                                 </p>
                             )}

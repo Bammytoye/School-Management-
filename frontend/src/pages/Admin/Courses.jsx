@@ -4,6 +4,7 @@ import { FiPlus, FiEdit2, FiTrash2, FiArrowLeft } from 'react-icons/fi'
 import { MdOutlineMenuBook } from 'react-icons/md'
 import AdminLayout from '../../components/AdminLayout'
 import ConfirmModal from '../../components/ConfirmModal'
+import Modal from '../../components/Modal'
 import SearchBar from '../../components/SearchBar'
 import Pagination from '../../components/Pagination'
 import EmptyState from '../../components/EmptyState'
@@ -192,7 +193,7 @@ export default function Courses() {
             </div>
 
             {/* Add Modal */}
-            <ConfirmModal isOpen={modal === 'add'} onClose={closeModal} title="Add New Course">
+            <Modal isOpen={modal === 'add'} onClose={closeModal} title="Add New Course">
                 <form onSubmit={handleAdd} className="space-y-3">
                     {error && <p className="text-red-500 text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>}
                     <div>
@@ -208,10 +209,10 @@ export default function Courses() {
                         <button type="button" onClick={closeModal} className="btn-secondary flex-1">Cancel</button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
 
             {/* Edit Modal */}
-            <ConfirmModal isOpen={modal === 'edit'} onClose={closeModal} title={`Edit — ${selected?.title}`}>
+            <Modal isOpen={modal === 'edit'} onClose={closeModal} title={`Edit — ${selected?.title}`}>
                 <form onSubmit={handleEdit} className="space-y-3">
                     {error && <p className="text-red-500 text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>}
                     <div>
@@ -227,7 +228,7 @@ export default function Courses() {
                         <button type="button" onClick={closeModal} className="btn-secondary flex-1">Cancel</button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
 
             {/* Delete Confirm */}
             <ConfirmModal

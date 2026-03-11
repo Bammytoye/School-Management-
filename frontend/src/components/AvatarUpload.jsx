@@ -10,8 +10,8 @@ export default function AvatarUpload({ user, onUpdate }) {
 
     const getAvatarSrc = (avatarUrl) => {
         if (!avatarUrl) return null
-        if (avatarUrl.startsWith('http')) return `${avatarUrl}?t=${Date.now()}`
-        return `http://localhost:8000${avatarUrl}?t=${Date.now()}`
+        if (avatarUrl.startsWith('http')) return avatarUrl
+        return `${avatarUrl}?t=${Date.now()}`
     }
 
     const avatarSrc = preview || getAvatarSrc(user?.avatar_url)
@@ -32,6 +32,7 @@ export default function AvatarUpload({ user, onUpdate }) {
         setLoading(true)
         try {
             const res = await api.post('/avatar', formData)
+            // console.log('avatar response:', res.data.user)  
             toast.success('Profile photo updated!')
             setPreview(null)
             onUpdate(res.data.user)
@@ -65,7 +66,7 @@ export default function AvatarUpload({ user, onUpdate }) {
             <div className="relative group flex-shrink-0">
                 <div className="
                     w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20
-                    rounded-full bg-blue-600 dark:bg-gray-700
+                    rounded-full bg-transparent dark:bg-gray-700
                     text-white flex items-center justify-center
                     text-2xl sm:text-3xl font-bold overflow-hidden
                     ring-2 sm:ring-4 ring-blue-100 dark:ring-blue-900

@@ -5,6 +5,7 @@ import { FaChalkboardTeacher } from 'react-icons/fa'
 import { MdOutlinePersonAdd } from 'react-icons/md'
 import AdminLayout from '../../components/AdminLayout'
 import ConfirmModal from '../../components/ConfirmModal'
+import Modal from '../../components/Modal'
 import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'
 import { enrolmentAPI } from '../../API/enrolmentAPI'
@@ -161,7 +162,7 @@ export default function Enrolments() {
             </div>
 
             {/* Enrol Modal */}
-            <ConfirmModal isOpen={modal} onClose={() => setModal(false)} title="Enrol Student in Course">
+            <Modal isOpen={modal} onClose={() => setModal(false)} title="Enrol Student in Course">
                 <form onSubmit={handleEnrol} className="space-y-3 sm:space-y-4">
                     {error && (
                         <p className="text-red-500 text-xs sm:text-sm bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">
@@ -179,7 +180,7 @@ export default function Enrolments() {
                             onChange={(e) => setForm({ ...form, user_id: e.target.value })}
                             className="input mt-1 text-sm w-full max-w-xs"
                         >
-                            <option value="">— Choose student —</option>
+                            <option value=""> Choose Student </option>
                             {students.map((s) => (
                                 <option key={s.id} value={s.id}>{s.name} ({s.email})</option>
                             ))}
@@ -196,7 +197,7 @@ export default function Enrolments() {
                             onChange={(e) => setForm({ ...form, course_id: e.target.value })}
                             className="input mt-1 text-sm w-full max-w-xs"
                         >
-                            <option value="">— Choose course —</option>
+                            <option value="">Choose Course</option>
                             {courses.map((c) => (
                                 <option key={c.id} value={c.id}>{c.title}</option>
                             ))}
@@ -212,7 +213,7 @@ export default function Enrolments() {
                         </button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
 
             {/* Remove Confirm */}
             <ConfirmModal

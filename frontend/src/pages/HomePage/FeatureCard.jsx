@@ -1,10 +1,10 @@
 import { useVisible } from '../../hooks/useVisible'
-import { FaUserGraduate, FaBook, FaClipboardList, FaBullseye, FaChartBar, FaCalendarAlt } from 'react-icons/fa'
+import { FaUserGraduate, FaBook, FaBullseye, FaChartBar, FaCalendarAlt, FaClipboard } from 'react-icons/fa'
 
 const iconMap = {
     'Student Management': <FaUserGraduate className="w-6 h-6 sm:w-7 sm:h-7" />,
     'Course Catalogue': <FaBook className="w-6 h-6 sm:w-7 sm:h-7" />,
-    'Smart Enrolment': <FaClipboardList className="w-6 h-6 sm:w-7 sm:h-7" />,
+    'Smart Enrolment': <FaClipboard className="w-6 h-6 sm:w-7 sm:h-7" />,
     'Grades & Assessment': <FaBullseye className="w-6 h-6 sm:w-7 sm:h-7" />,
     'Attendance Tracking': <FaCalendarAlt className="w-6 h-6 sm:w-7 sm:h-7" />,
     'Analytics Dashboard': <FaChartBar className="w-6 h-6 sm:w-7 sm:h-7" />,

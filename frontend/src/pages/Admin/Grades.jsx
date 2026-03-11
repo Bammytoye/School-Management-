@@ -4,7 +4,7 @@ import { FiArrowLeft, FiEdit2, FiSave, FiX } from 'react-icons/fi'
 import { MdOutlineGrade } from 'react-icons/md'
 import { FaChalkboardTeacher } from 'react-icons/fa'
 import AdminLayout from '../../components/AdminLayout'
-import ConfirmModal from '../../components/ConfirmModal'
+import Modal from '../../components/Modal'   
 import EmptyState from '../../components/EmptyState'
 import { TableSkeleton } from '../../components/Skeleton'
 import { gradesAPI } from '../../API/gradesAPI'
@@ -194,7 +194,7 @@ export default function Grades() {
             )}
 
             {/* Grade modal */}
-            <ConfirmModal
+            <Modal
                 isOpen={!!modal}
                 onClose={() => setModal(null)}
                 title={`Grade — ${modal?.student_name}`}
@@ -232,7 +232,7 @@ export default function Grades() {
                         </button>
                     </div>
                 </form>
-            </ConfirmModal>
+            </Modal>
         </AdminLayout>
     )
 }

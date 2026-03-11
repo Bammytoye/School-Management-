@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 
 export const uploadAvatar = async (req, res, next) => {
     try {
+        // console.log('file:', req.file)      
+        // console.log('user:', req.user)       
         if (!req.file) return res.status(400).json({ message: "No file uploaded." });
 
         const avatarUrl = `/uploads/avatars/${req.file.filename}`;
@@ -28,6 +30,7 @@ export const uploadAvatar = async (req, res, next) => {
 
         res.json({ success: true, user: result.rows[0] });
     } catch (err) {
+        console.error('Avatar upload error:', err) 
         next(err);
     }
 };

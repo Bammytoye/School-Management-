@@ -102,7 +102,7 @@ export default function Attendance() {
                         value={selectedCourse}
                         onChange={(e) => setSC(e.target.value)}
                     >
-                        <option value="">— Select course —</option>
+                        <option value="">Select Course</option>
                         {courses.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
                     </select>
                 </div>

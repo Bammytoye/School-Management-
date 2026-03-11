@@ -10,7 +10,6 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true,
       },
-      // ✅ FIX: proxy /uploads so avatar images load in dev
       '/uploads': {
         target: 'http://localhost:8000',
         changeOrigin: true,

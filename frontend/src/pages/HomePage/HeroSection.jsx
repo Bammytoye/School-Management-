@@ -39,8 +39,9 @@ export default function HeroSection() {
                 {/* Subheading */}
                 <p className="text-base sm:text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed mb-10"
                     style={{ animation: 'fadeInUp 0.7s ease 0.2s both' }}>
-                    A complete platform for managing students, courses, grades, and attendance —
-                    all in one beautiful, easy-to-use system.
+                    A complete platform for managing students, courses, grades, and attendance
+                    all in one beautiful, easy-to-use system designed to help schools stay organized,
+                    improve productivity, and manage academic operations like a pro.
                 </p>
 
                 {/* CTA Buttons */}
@@ -49,7 +50,7 @@ export default function HeroSection() {
                     {user ? (
                         <button
                             onClick={() => navigate(user.role === 'admin' ? '/admin/dashboard' : '/my-courses')}
-                            className="group px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-200 dark:shadow-none transition-all duration-200 hover:scale-105 text-sm sm:text-base flex items-center gap-2"
+                            className="group px-6 sm:px-8 py-3 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-200 dark:shadow-none transition-all duration-200 hover:scale-105 text-sm sm:text-base flex items-center gap-2"
                         >
                             Open Dashboard
                             <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -57,12 +58,12 @@ export default function HeroSection() {
                     ) : (
                         <>
                             <Link to="/register"
-                                className="group px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-200 dark:shadow-none transition-all duration-200 hover:scale-105 text-sm sm:text-base flex items-center gap-2">
+                                className="group px-6 sm:px-8 py-3 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-200 dark:shadow-none transition-all duration-200 hover:scale-105 text-sm sm:text-base flex items-center gap-2">
                                 Get Started Free
                                 <span className="group-hover:translate-x-1 transition-transform">→</span>
                             </Link>
                             <Link to="/login"
-                                className="px-6 sm:px-8 py-3 sm:py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-bold rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 hover:scale-105 text-sm sm:text-base shadow-sm">
+                                className="px-6 sm:px-8 py-3 sm:py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-bold rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 hover:scale-105 text-sm sm:text-base shadow-sm">
                                 Sign In
                             </Link>
                         </>

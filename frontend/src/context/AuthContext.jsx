@@ -34,14 +34,13 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    // Merge updated fields to keep old data intact
-    const updateUser = (updatedFields) => {
+    const updateUser = (updatedUser) => {
         setUser(prev => {
-            const merged = { ...prev, ...updatedFields };
-            localStorage.setItem('user', JSON.stringify(merged));
-            return merged;
-        });
-    };
+            const merged = { ...prev, ...updatedUser }
+            localStorage.setItem('user', JSON.stringify(merged))
+            return merged
+        })
+    }
 
     return (
         <AuthContext.Provider value={{ user, login, logout, loading, updateUser }}>
