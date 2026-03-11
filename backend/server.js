@@ -6,15 +6,15 @@ import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import  errorMiddleware from './middleware/errorMiddleware.js'
-import  authRouter from './routes/authRoutes.js'
-import  userRouter from './routes/userRoutes.js'
-import  courseRouter from './routes/courseRoutes.js'
-import  enrolmentRouter from './routes/enrolmentRoutes.js'  
+import errorMiddleware from './middleware/errorMiddleware.js'
+import authRouter from './routes/authRoutes.js'
+import userRouter from './routes/userRoutes.js'
+import courseRouter from './routes/courseRoutes.js'
+import enrolmentRouter from './routes/enrolmentRoutes.js'
 import profileRoutes from './routes/profileRoutes.js'
-import gradesRoutes  from './routes/gradesRoutes.js'  
-import avatarRouter      from './routes/avatarRoutes.js'
-import dashboardRouter   from './routes/dashboardRoutes.js'
+import gradesRoutes from './routes/gradesRoutes.js'
+import avatarRouter from './routes/avatarRoutes.js'
+import dashboardRouter from './routes/dashboardRoutes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -24,6 +24,12 @@ const port = process.env.PORT || 8000
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({
+    origin: [
+        'https://schoolmanagement-omega-ten.vercel.app/',
+        'http://localhost:5173'  
+    ]
+}));
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -39,10 +45,10 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
 app.use('/api/courses', courseRouter)
 app.use('/api/enrolments', enrolmentRouter)
-app.use('/api/profile',    profileRoutes)
-app.use('/api',            gradesRoutes)
-app.use('/api/avatar',     avatarRouter)
-app.use('/api/dashboard',  dashboardRouter)
+app.use('/api/profile', profileRoutes)
+app.use('/api', gradesRoutes)
+app.use('/api/avatar', avatarRouter)
+app.use('/api/dashboard', dashboardRouter)
 
 // 404 handler
 app.use((req, res) => {
