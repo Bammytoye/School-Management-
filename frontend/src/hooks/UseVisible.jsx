@@ -7,7 +7,9 @@ export function useVisible(threshold = 0.2) {
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) setVisible(true)
+                if (entry.isIntersecting)
+                    setVisible(true)
+                observer.disconnect()
             },
             { threshold }
         )
