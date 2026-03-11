@@ -1,29 +1,7 @@
 import bcrypt from 'bcryptjs'
 import UserModel from '../models/userModel.js'
 
-// GET /api/users?page=1&search=&role=
-const getUsers = async (req, res, next) => {
-    try {
-        const { search = '', page = 1, limit = 10, role } = req.query;
-        const data = await UserModel.findAll({ search, page: parseInt(page), limit: parseInt(limit), role });
-        res.json({ success: true, ...data });
-    } catch (err) {
-        next(err);
-    }
-};
-
-// GET /api/users/:id
-const getUserById = async (req, res, next) => {
-    try {
-        const user = await UserModel.findById(req.params.id);
-        if (!user) return res.status(404).json({ message: 'User not found.' });
-        res.json({ success: true, user });
-    } catch (err) {
-        next(err);
-    }
-};
-
-// POST /api/users  (admin creates a user)
+// create user
 const createUser = async (req, res, next) => {
     try {
         const { name, email, password, role } = req.body;
@@ -44,7 +22,30 @@ const createUser = async (req, res, next) => {
     }
 };
 
-// PUT /api/users/:id
+// get users
+const getUsers = async (req, res, next) => {
+    try {
+        const { search = '', page = 1, limit = 10, role } = req.query;
+        const data = await UserModel.findAll({ search, page: parseInt(page), limit: parseInt(limit), role });
+        res.json({ success: true, ...data });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// get User Id
+const getUserById = async (req, res, next) => {
+    try {
+        const user = await UserModel.findById(req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found.' });
+        res.json({ success: true, user });
+    } catch (err) {
+        next(err);
+    }
+};
+
+
+// update users
 const updateUser = async (req, res, next) => {
     try {
         const { name, email, role } = req.body;
@@ -56,7 +57,7 @@ const updateUser = async (req, res, next) => {
     }
 };
 
-// DELETE /api/users/:id
+// delete users
 const deleteUser = async (req, res, next) => {
     try {
         // Prevent admin from deleting themselves

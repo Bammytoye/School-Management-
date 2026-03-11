@@ -83,7 +83,6 @@ export default function AvatarUpload({ user, onUpdate }) {
                     )}
                 </div>
 
-                {/* Hover overlay */}
                 <button
                     onClick={() => inputRef.current?.click()}
                     disabled={loading}

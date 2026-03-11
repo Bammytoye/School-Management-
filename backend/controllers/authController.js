@@ -7,11 +7,11 @@ const signToken = (user) => {
     return jwt.sign(
         { id: user.id, name: user.name, email: user.email, role: user.role },
         process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+        { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
     );
 };
 
-// POST /api/auth/register
+// register
 const register = async (req, res, next) => {
     try {
         const { name, email, password, role } = req.body;
@@ -47,7 +47,7 @@ const register = async (req, res, next) => {
     }
 };
 
-// POST /api/auth/login
+// login
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -84,7 +84,7 @@ const login = async (req, res, next) => {
     }
 };
 
-// GET /api/auth/me
+// me
 const getMe = async (req, res, next) => {
     try {
         const user = await UserModel.findById(req.user.id);

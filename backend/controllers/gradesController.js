@@ -10,7 +10,7 @@ const getLetterGrade = (score) => {
 }
 
 
-// GET /api/grades?course_id=&user_id=
+// get grade
 const getGrades = async (req, res, next) => {
     try {
         const { course_id, user_id } = req.query;
@@ -33,7 +33,7 @@ const getGrades = async (req, res, next) => {
     } catch (err) { next(err); }
 };
 
-// POST /api/grades  (admin sets/updates a grade)
+// set grade
 const setGrade = async (req, res, next) => {
     try {
         const { user_id, course_id, score, remarks } = req.body;
@@ -54,7 +54,7 @@ const setGrade = async (req, res, next) => {
     } catch (err) { next(err); }
 };
 
-// GET /api/grades/my  (student sees own grades)
+// getGrade(student sees own grades)
 const getMyGrades = async (req, res, next) => {
     try {
         const result = await pool.query(
@@ -71,7 +71,7 @@ const getMyGrades = async (req, res, next) => {
 
 // ── ATTENDANCE ──
 
-// GET /api/attendance?course_id=&date=
+// get attendance
 const getAttendance = async (req, res, next) => {
     try {
         const { course_id, date } = req.query;
@@ -93,7 +93,7 @@ const getAttendance = async (req, res, next) => {
     } catch (err) { next(err); }
 };
 
-// POST /api/attendance  (admin marks attendance — bulk)
+// mark attendance
 const markAttendance = async (req, res, next) => {
     try {
         const { course_id, date, records } = req.body;
@@ -118,7 +118,7 @@ const markAttendance = async (req, res, next) => {
     } catch (err) { next(err); }
 };
 
-// GET /api/attendance/my  (student sees own attendance)
+// get MY Attendance
 const getMyAttendance = async (req, res, next) => {
     try {
         const result = await pool.query(

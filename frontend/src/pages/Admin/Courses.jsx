@@ -107,10 +107,10 @@ export default function Courses() {
             </div>
 
             <div className="card">
-                {/* Search + total */}
+                {/* Search */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                     <SearchBar
-                        onSearch={(v) => { setSearch(v); setPage(1) }}
+                        onSearch={(s) => { setSearch(s); setPage(1) }}
                         placeholder="Search courses..."
                     />
                     <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex-shrink-0">

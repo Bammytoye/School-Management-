@@ -42,9 +42,9 @@ const CourseModel = {
     findById: async (id) => {
         const result = await pool.query(
             `SELECT c.*, u.name AS created_by_name
-       FROM courses c
-       LEFT JOIN users u ON c.created_by = u.id
-       WHERE c.id = $1`,
+            FROM courses c
+            LEFT JOIN users u ON c.created_by = u.id
+            WHERE c.id = $1`,
             [id]
         );
         return result.rows[0];
@@ -54,8 +54,8 @@ const CourseModel = {
     create: async ({ title, description, created_by }) => {
         const result = await pool.query(
             `INSERT INTO courses (title, description, created_by)
-       VALUES ($1, $2, $3)
-       RETURNING *`,
+            VALUES ($1, $2, $3)
+            RETURNING *`,
             [title, description, created_by]
         );
         return result.rows[0];
@@ -65,8 +65,8 @@ const CourseModel = {
     update: async (id, { title, description }) => {
         const result = await pool.query(
             `UPDATE courses SET title=$1, description=$2
-       WHERE id=$3
-       RETURNING *`,
+            WHERE id=$3
+            RETURNING *`,
             [title, description, id]
         );
         return result.rows[0];

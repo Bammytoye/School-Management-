@@ -1,5 +1,6 @@
 import pool from '../config/DB.js'
 
+// getDashboardCharts
 export const getDashboardCharts = async (req, res, next) => {
     try {
         const [enrolMonthRes, gradeDistRes, topCoursesRes, attendRes] = await Promise.all([
@@ -7,8 +8,8 @@ export const getDashboardCharts = async (req, res, next) => {
             // Enrolments by month (last 8 months)
             pool.query(`
                 SELECT TO_CHAR(enrolled_at, 'Mon YY') AS month,
-                       DATE_TRUNC('month', enrolled_at) AS month_date,
-                       COUNT(*) AS count
+                DATE_TRUNC('month', enrolled_at) AS month_date,
+                COUNT(*) AS count
                 FROM enrolments
                 WHERE enrolled_at >= NOW() - INTERVAL '8 months'
                 GROUP BY month, month_date

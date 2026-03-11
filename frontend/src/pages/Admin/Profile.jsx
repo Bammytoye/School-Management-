@@ -96,17 +96,17 @@ export default function Profile() {
                 {[
                     { key: 'profile', label: 'Profile', icon: <FiUser className="flex-shrink-0" /> },
                     { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
-                ].map((t) => (
+                ].map((tab) => (
                     <button
-                        key={t.key}
-                        onClick={() => setTab(t.key)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${tab === t.key
+                        key={tab.key}
+                        onClick={() => setTab(tab.key)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${tab === tab.key
                                 ? 'bg-white dark:bg-gray-700 shadow text-gray-800 dark:text-white'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                             }`}
                     >
-                        {t.icon}
-                        {t.label}
+                        {tab.icon}
+                        {tab.label}
                     </button>
                 ))}
             </div>

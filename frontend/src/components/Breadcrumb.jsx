@@ -19,10 +19,10 @@ export default function Breadcrumb() {
 
     if (segments.length <= 1) return null
 
-    const crumbs = segments.map((seg, i) => {
-        const path  = '/' + segments.slice(0, i + 1).join('/')
+    const crumbs = segments.map((seg, index) => {
+        const path  = '/' + segments.slice(0, index + 1).join('/')
         const label = routeLabels[seg] || seg.charAt(0).toUpperCase() + seg.slice(1)
-        const isLast = i === segments.length - 1
+        const isLast = index === segments.length - 1
         return { path, label, isLast }
     })
 

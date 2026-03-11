@@ -1,9 +1,9 @@
 import CourseModel from '../models/courseModel.js'
 
-// GET /api/courses?page=1&search=
+// GET course
 const getCourses = async (req, res, next) => {
     try {
-        const { search = '', page = 1, limit = 10 } = req.query;
+        const { search = '', page = 1, limit = 50 } = req.query;
         const data = await CourseModel.findAll({ search, page: parseInt(page), limit: parseInt(limit) });
         res.json({ success: true, ...data });
     } catch (err) {
@@ -11,7 +11,7 @@ const getCourses = async (req, res, next) => {
     }
 };
 
-// GET /api/courses/:id
+// GET courses/:id
 const getCourseById = async (req, res, next) => {
     try {
         const course = await CourseModel.findById(req.params.id);
@@ -22,7 +22,7 @@ const getCourseById = async (req, res, next) => {
     }
 };
 
-// POST /api/courses
+// create course
 const createCourse = async (req, res, next) => {
     try {
         const { title, description } = req.body;
@@ -35,7 +35,7 @@ const createCourse = async (req, res, next) => {
     }
 };
 
-// PUT /api/courses/:id
+// PUT update course
 const updateCourse = async (req, res, next) => {
     try {
         const { title, description } = req.body;
@@ -47,7 +47,7 @@ const updateCourse = async (req, res, next) => {
     }
 };
 
-// DELETE /api/courses/:id
+// delete course
 const deleteCourse = async (req, res, next) => {
     try {
         const deleted = await CourseModel.delete(req.params.id);

@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
-// Go up 2 levels: config → src → backend root
 const uploadDir = path.join(__dirname, '..', 'uploads', 'avatars')
 
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true })

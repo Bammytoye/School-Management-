@@ -56,8 +56,8 @@ export default function TopCoursesChart({ data }) {
                             }}
                         />
                         <Bar dataKey="count" radius={[0, 6, 6, 0]}>
-                            {data.map((_, i) => (
-                                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                            {data.map((none, index) => (
+                                <Cell key={index} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Bar>
                     </BarChart>

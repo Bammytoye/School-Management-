@@ -6,8 +6,8 @@ export default function StatsGrid({ stats, loading }) {
     if (loading) {
         return (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 mb-6 sm:mb-7 md:mb-8">
-                {Array.from({ length: 4 }).map((_, i) => (
-                    <StatCardSkeleton key={i} />
+                {Array.from({ length: 4 }).map((none, index) => (
+                    <StatCardSkeleton key={index} />
                 ))}
             </div>
         )

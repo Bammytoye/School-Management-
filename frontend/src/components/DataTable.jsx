@@ -55,10 +55,10 @@ export default function DataTable({ columns, data, loading, emptyState }) {
 
                     {/* LOADING STATE */}
                     {loading ? (
-                        Array.from({ length: 5 }).map((_, i) => (
+                        Array.from({ length: 5 }).map((none, index) => (
                             <tr
-                                key={i}
-                                className={i % 2 === 0
+                                key={index}
+                                className={index % 2 === 0
                                     ? 'bg-white dark:bg-gray-900'
                                     : 'bg-gray-50/50 dark:bg-gray-800/50'}
                             >
@@ -82,11 +82,11 @@ export default function DataTable({ columns, data, loading, emptyState }) {
 
                     /* DATA */
                     : (
-                        sorted.map((row, i) => (
+                        sorted.map((row, index) => (
                             <tr
-                                key={row.id || i}
+                                key={row.id || index}
                                 className={`border-b border-gray-100 dark:border-gray-800 transition-colors hover:bg-blue-50/40 dark:hover:bg-blue-900/10
-                                ${i % 2 === 0
+                                ${index % 2 === 0
                                         ? 'bg-white dark:bg-gray-900'
                                         : 'bg-gray-50/50 dark:bg-gray-800/30'}`}
                             >

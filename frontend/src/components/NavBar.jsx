@@ -12,7 +12,7 @@ export default function NavBar({ onMenuClick }) {
 
     const handleLogout = () => {
         logout()
-        navigate('/login')
+        navigate('/')
     }
 
     const getAvatarSrc = (avatarUrl) => {
@@ -93,7 +93,6 @@ export default function NavBar({ onMenuClick }) {
                 </Tooltip>
 
                 {/* Logout */}
-                <Tooltip text="Logout">
                     <button
                         onClick={handleLogout}
                         className="flex items-center gap-1.5 text-xs sm:text-sm text-red-500 hover:text-red-700 font-medium transition-colors px-1.5 sm:px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
@@ -101,7 +100,6 @@ export default function NavBar({ onMenuClick }) {
                         <FiLogOut className="text-base sm:text-lg flex-shrink-0" />
                         <span className="hidden sm:inline">Logout</span>
                     </button>
-                </Tooltip>
             </div>
         </header>
     )

@@ -23,8 +23,8 @@ const UserModel = {
     create: async ({ name, email, password, role = 'student' }) => {
         const result = await pool.query(
             `INSERT INTO users (name, email, password, role)
-        VALUES ($1, $2, $3, $4)
-        RETURNING id, name, email, role, created_at`,
+            VALUES ($1, $2, $3, $4)
+            RETURNING id, name, email, role, created_at`,
             [name, email, password, role]
         );
         return result.rows[0];
@@ -56,10 +56,10 @@ const UserModel = {
         params.push(limit, offset);
         const dataResult = await pool.query(
             `SELECT id, name, email, role, created_at
-       FROM users
-       WHERE ${where}
-       ORDER BY created_at DESC
-       LIMIT $${params.length - 1} OFFSET $${params.length}`,
+            FROM users
+            WHERE ${where}
+            ORDER BY created_at DESC
+            LIMIT $${params.length - 1} OFFSET $${params.length}`,
             params
         );
 

@@ -40,9 +40,9 @@ export default function Grades() {
         Promise.all([
             enrolmentAPI.getAll(),
             gradesAPI.getAll({ course_id: selectedCourse }),
-        ]).then(([e, g]) => {
-            setEnrolments(e.data.enrolments.filter((en) => String(en.course_id) === String(selectedCourse)))
-            setGrades(g.data.grades)
+        ]).then(([enrol, grade]) => {
+            setEnrolments(enrol.data.enrolments.filter((en) => String(en.course_id) === String(selectedCourse)))
+            setGrades(grade.data.grades)
         }).finally(() => setLoading(false))
     }, [selectedCourse])
 
@@ -101,7 +101,7 @@ export default function Grades() {
                     onChange={(e) => setSC(e.target.value)}
                 >
                     <option value=""> Choose a course </option>
-                    {courses.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+                    {courses.map((cour) => <option key={cour.id} value={cour.id}>{cour.title}</option>)}
                 </select>
             </div>
 
@@ -123,30 +123,30 @@ export default function Grades() {
                             <TableSkeleton rows={5} cols={6} />
                         ) : (
                             <tbody>
-                                {enrolments.map((en) => {
-                                    const g = getGradeFor(en.student_id)
+                                {enrolments.map((enrol) => {
+                                    const grade = getGradeFor(enrol.student_id)
                                     return (
-                                        <tr key={en.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                        <tr key={enrol.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                                             {/* Student name + email on mobile */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">
-                                                <div>{en.student_name}</div>
+                                                <div>{enrol.student_name}</div>
                                                 <div className="sm:hidden text-xs text-gray-400 dark:text-gray-500 mt-0.5 font-normal">
-                                                    {en.email}
+                                                    {enrol.email}
                                                 </div>
                                             </td>
                                             {/* Email — hidden on mobile */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 hidden sm:table-cell">
-                                                {en.email}
+                                                {enrol.email}
                                             </td>
                                             {/* Score */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                                {g ? `${g.score}%` : <span className="text-gray-400">—</span>}
+                                                {grade ? `${grade.score}%` : <span className="text-gray-400">—</span>}
                                             </td>
                                             {/* Grade badge */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4">
-                                                {g ? (
-                                                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${GRADE_COLORS[g.grade] || ''}`}>
-                                                        {g.grade}
+                                                {grade ? (
+                                                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${GRADE_COLORS[grade.grade] || ''}`}>
+                                                        {grade.grade}
                                                     </span>
                                                 ) : (
                                                     <span className="text-gray-400 dark:text-gray-600 text-xs">Not graded</span>
@@ -154,16 +154,16 @@ export default function Grades() {
                                             </td>
                                             {/* Remarks — hidden on mobile */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 max-w-[140px] truncate hidden md:table-cell">
-                                                {g?.remarks || '—'}
+                                                {Grades?.remarks || '—'}
                                             </td>
                                             {/* Action */}
                                             <td className="py-2.5 sm:py-3">
                                                 <button
-                                                    onClick={() => openGrade(en)}
+                                                    onClick={() => openGrade(enrol)}
                                                     className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium transition-colors"
                                                 >
                                                     <FiEdit2 className="flex-shrink-0" />
-                                                    <span className="hidden sm:inline">{g ? 'Edit' : 'Set Grade'}</span>
+                                                    <span className="hidden sm:inline">{grade ? 'Edit' : 'Set Grade'}</span>
                                                 </button>
                                             </td>
                                         </tr>

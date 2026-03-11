@@ -28,8 +28,8 @@ export default function GradeChart({ data }) {
                             }
                             labelLine={false}
                         >
-                            {data.map((_, i) => (
-                                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                            {data.map((none, index) => (
+                                <Cell key={index} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
                         <Tooltip

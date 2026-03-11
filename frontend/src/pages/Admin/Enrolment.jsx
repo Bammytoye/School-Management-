@@ -29,14 +29,14 @@ export default function Enrolments() {
     const loadData = async () => {
         setLoading(true)
         try {
-            const [e, u, c] = await Promise.all([
+            const [enrol, userOne, courseAny] = await Promise.all([
                 enrolmentAPI.getAll(),
                 userAPI.getAll({ role: 'student', limit: 100 }),
                 courseAPI.getAll({ limit: 100 }),
             ])
-            setEnrolments(e.data.enrolments)
-            setStudents(u.data.users)
-            setCourses(c.data.courses)
+            setEnrolments(enrol.data.enrolments)
+            setStudents(userOne.data.users)
+            setCourses(courseAny.data.courses)
         } catch (err) {
             toast.error('Failed to load enrolments. Please refresh.')
             console.error('Enrolments load error:', err)

@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 import pool from '../config/DB.js';
 
-// GET /api/profile
+// get prfile
 const getProfile = async (req, res, next) => {
     try {
         const result = await pool.query(
@@ -15,7 +15,7 @@ const getProfile = async (req, res, next) => {
     }
 };
 
-// PUT /api/profile
+// update profile
 const updateProfile = async (req, res, next) => {
     try {
         const { name, email } = req.body;
@@ -36,7 +36,7 @@ const updateProfile = async (req, res, next) => {
     } catch (err) { next(err); }
 };
 
-// PUT /api/profile/password
+// change password
 const changePassword = async (req, res, next) => {
     try {
         const { currentPassword, newPassword } = req.body;

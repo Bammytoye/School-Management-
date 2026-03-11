@@ -151,30 +151,30 @@ export default function Attendance() {
                                 <TableSkeleton rows={5} cols={3} />
                             ) : (
                                 <tbody>
-                                    {enrolments.map((en) => (
-                                        <tr key={en.id} className="border-b border-gray-100 dark:border-gray-800">
+                                    {enrolments.map((enrol) => (
+                                        <tr key={enrol.id} className="border-b border-gray-100 dark:border-gray-800">
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">
-                                                <div>{en.student_name}</div>
+                                                <div>{enrol.student_name}</div>
                                                 <div className="sm:hidden text-xs text-gray-400 dark:text-gray-500 mt-0.5 font-normal">
-                                                    {en.email}
+                                                    {enrol.email}
                                                 </div>
                                             </td>
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 hidden sm:table-cell">
-                                                {en.email}
+                                                {enrol.email}
                                             </td>
                                             <td className="py-2.5 sm:py-3">
                                                 <div className="flex gap-1 sm:gap-2 flex-wrap">
-                                                    {['present', 'absent', 'late'].map((s) => (
+                                                    {['present', 'absent', 'late'].map((show) => (
                                                         <button
-                                                            key={s}
-                                                            onClick={() => toggle(en.student_id, s)}
-                                                            className={`flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-medium border capitalize transition-all ${records[en.student_id] === s
-                                                                ? STATUS_STYLES[s]
+                                                            key={show}
+                                                            onClick={() => toggle(enrol.student_id, show)}
+                                                            className={`flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-medium border capitalize transition-all ${records[enrol.student_id] === show
+                                                                ? STATUS_STYLES[show]
                                                                 : 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-600 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'
                                                                 }`}
                                                         >
-                                                            {STATUS_ICONS[s]}
-                                                            <span className="hidden sm:inline">{s}</span>
+                                                            {STATUS_ICONS[show]}
+                                                            <span className="hidden sm:inline">{show}</span>
                                                         </button>
                                                     ))}
                                                 </div>

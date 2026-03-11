@@ -1,6 +1,6 @@
 import EnrolmentModel from '../models/enrolmentModel.js'
 
-// POST /api/enrolments  (admin enrols a student)
+// (admin enrols a student)
 const enrolStudent = async (req, res, next) => {
     try {
         const { user_id, course_id } = req.body;
@@ -18,7 +18,7 @@ const enrolStudent = async (req, res, next) => {
     }
 };
 
-// GET /api/enrolments/my  (student sees their own courses)
+// (student sees their own courses)
 const getMyCourses = async (req, res, next) => {
     try {
         const courses = await EnrolmentModel.getStudentCourses(req.user.id);
@@ -28,7 +28,7 @@ const getMyCourses = async (req, res, next) => {
     }
 };
 
-// GET /api/enrolments  (admin sees all enrolments)
+// (admin sees all enrolments)
 const getAllEnrolments = async (req, res, next) => {
     try {
         const enrolments = await EnrolmentModel.findAll();
@@ -38,7 +38,7 @@ const getAllEnrolments = async (req, res, next) => {
     }
 };
 
-// DELETE /api/enrolments/:id  (admin removes enrolment)
+// (admin removes enrolment)
 const removeEnrolment = async (req, res, next) => {
     try {
         const deleted = await EnrolmentModel.delete(req.params.id);
@@ -49,7 +49,7 @@ const removeEnrolment = async (req, res, next) => {
     }
 };
 
-// GET /api/enrolments/stats  (admin dashboard stats)
+// (admin dashboard stats)
 const getStats = async (req, res, next) => {
     try {
         const stats = await EnrolmentModel.getStats();
