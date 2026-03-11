@@ -45,7 +45,7 @@ export default function MyCourses() {
     const presentPct = attendance.length
         ? Math.round(
               (attendance.filter((a) => a.status === 'present').length / attendance.length) * 100
-          )
+            )
         : null
 
     return (
@@ -58,7 +58,7 @@ export default function MyCourses() {
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white">
-                            My Learning
+                            Dashboard
                         </h1>
                         <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base mt-1">
                             Welcome back, {user?.name}!
