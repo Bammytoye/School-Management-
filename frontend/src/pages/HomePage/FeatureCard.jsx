@@ -1,4 +1,4 @@
-import { useVisible } from '../../hooks/useVisible'
+import { useVisible } from "../../hooks/UseVisible";
 import { FaUserGraduate, FaBook, FaBullseye, FaChartBar, FaCalendarAlt, FaClipboard } from 'react-icons/fa'
 
 const iconMap = {
