@@ -154,7 +154,7 @@ export default function Grades() {
                                             </td>
                                             {/* Remarks — hidden on mobile */}
                                             <td className="py-2.5 sm:py-3 pr-3 sm:pr-4 text-gray-500 dark:text-gray-400 max-w-[140px] truncate hidden md:table-cell">
-                                                {Grades?.remarks || '—'}
+                                                {grade?.remarks || '—'}
                                             </td>
                                             {/* Action */}
                                             <td className="py-2.5 sm:py-3">
@@ -202,7 +202,7 @@ export default function Grades() {
                 <form onSubmit={handleSave} className="space-y-3 sm:space-y-4">
                     <div>
                         <label className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Score (0–100)
+                            Score (0 - 100)
                         </label>
                         <input
                             type="number" min="0" max="100" step="0.5" required
