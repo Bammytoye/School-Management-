@@ -14,16 +14,14 @@ export default function Profile() {
     const navigate = useNavigate()
     const isAdmin = authUser?.role === 'admin'
 
-    const [profile, setProfile]   = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
-    const [pwForm, setPwForm]     = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
-    const [loadingProfile, setLP] = useState(false)
-    const [loadingPw, setLPw]     = useState(false)
+    const [profile, setProfile]     = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
+    const [pwForm, setPwForm]       = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+    const [loadingProfile, setLP]   = useState(false)
+    const [loadingPw, setLPw]       = useState(false)
     const [activeTab, setActiveTab] = useState('profile')
-
-    // Show/hide toggles for password fields
-    const [showCurrent, setShowCurrent]   = useState(false)
-    const [showNew, setShowNew]           = useState(false)
-    const [showConfirm, setShowConfirm]   = useState(false)
+    const [showCurrent, setShowCurrent] = useState(false)
+    const [showNew, setShowNew]         = useState(false)
+    const [showConfirm, setShowConfirm] = useState(false)
 
     useEffect(() => {
         profileAPI.get().then((res) => setProfile(res.data.user))
@@ -70,11 +68,6 @@ export default function Profile() {
         updateUser(merged)
     }
 
-    const tabs = [
-        { key: 'profile',  label: 'Profile',  icon: <FiUser className="flex-shrink-0" /> },
-        { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
-    ]
-
     const content = (
         <div className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
 
@@ -88,9 +81,9 @@ export default function Profile() {
             </button>
 
             {/* Avatar card */}
-            <div className="card mb-4 sm:mb-5 md:mb-6 p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
+            <div className="card mb-4 sm:mb-5 md:mb-6 p-4 sm:p-5 md:p-6">
                 <AvatarUpload user={profile} onUpdate={handleAvatarUpdate} />
-                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800">
+                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
                     <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
                         {profile.name}
                     </h1>
@@ -101,8 +94,11 @@ export default function Profile() {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-1 mb-4 sm:mb-5 md:mb-6 w-fit">
-                {tabs.map((t) => (
+            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-4 sm:mb-5 md:mb-6 w-fit">
+                {[
+                    { key: 'profile',  label: 'Profile',  icon: <FiUser className="flex-shrink-0" /> },
+                    { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
+                ].map((t) => (
                     <button
                         key={t.key}
                         onClick={() => setActiveTab(t.key)}
@@ -120,7 +116,7 @@ export default function Profile() {
 
             {/* Profile tab */}
             {activeTab === 'profile' && (
-                <div className="card p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
+                <div className="card p-4 sm:p-5 md:p-6">
                     <h2 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">
                         <FiUser className="text-blue-500 flex-shrink-0" />
                         Personal Information
@@ -173,7 +169,7 @@ export default function Profile() {
 
             {/* Password tab */}
             {activeTab === 'password' && (
-                <div className="card p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
+                <div className="card p-4 sm:p-5 md:p-6">
                     <h2 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">
                         <FiLock className="text-blue-500 flex-shrink-0" />
                         Change Password
@@ -234,7 +230,9 @@ export default function Profile() {
                                 </button>
                             </div>
                             {pwForm.confirmPassword && (
-                                <p className={`flex items-center gap-1 text-xs mt-1 ${pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'}`}>
+                                <p className={`flex items-center gap-1 text-xs mt-1 ${
+                                    pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'
+                                }`}>
                                     {pwForm.newPassword === pwForm.confirmPassword
                                         ? <><FiCheck className="flex-shrink-0" /> Passwords match</>
                                         : <><FiX className="flex-shrink-0" /> Passwords do not match</>
