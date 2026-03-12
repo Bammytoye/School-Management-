@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FiArrowLeft, FiUser, FiMail, FiLock, FiShield, FiSave, FiAlertTriangle, FiCheck, FiX } from 'react-icons/fi'
+import { FiArrowLeft, FiUser, FiMail, FiLock, FiShield, FiSave, FiAlertTriangle, FiCheck, FiX, FiEye, FiEyeOff } from 'react-icons/fi'
 import Navbar from '../../components/NavBar'
 import AvatarUpload from '../../components/AvatarUpload'
 import PasswordStrength from '../../components/PasswordStrength'
@@ -14,11 +14,16 @@ export default function Profile() {
     const navigate = useNavigate()
     const isAdmin = authUser?.role === 'admin'
 
-    const [profile, setProfile] = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
-    const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+    const [profile, setProfile]   = useState({ name: '', email: '', role: '', created_at: '', avatar_url: null })
+    const [pwForm, setPwForm]     = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
     const [loadingProfile, setLP] = useState(false)
-    const [loadingPw, setLPw] = useState(false)
-    const [tab, setTab] = useState('profile')
+    const [loadingPw, setLPw]     = useState(false)
+    const [activeTab, setActiveTab] = useState('profile')
+
+    // Show/hide toggles for password fields
+    const [showCurrent, setShowCurrent]   = useState(false)
+    const [showNew, setShowNew]           = useState(false)
+    const [showConfirm, setShowConfirm]   = useState(false)
 
     useEffect(() => {
         profileAPI.get().then((res) => setProfile(res.data.user))
@@ -60,11 +65,15 @@ export default function Profile() {
     }
 
     const handleAvatarUpdate = (updatedUser) => {
-        // console.log('handleAvatarUpdate called with:', updatedUser) 
         const merged = { ...profile, ...updatedUser }
         setProfile(merged)
-        updateUser(merged)  
+        updateUser(merged)
     }
+
+    const tabs = [
+        { key: 'profile',  label: 'Profile',  icon: <FiUser className="flex-shrink-0" /> },
+        { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
+    ]
 
     const content = (
         <div className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
@@ -79,9 +88,9 @@ export default function Profile() {
             </button>
 
             {/* Avatar card */}
-            <div className="card mb-4 sm:mb-5 md:mb-6 p-4 sm:p-5 md:p-6">
+            <div className="card mb-4 sm:mb-5 md:mb-6 p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
                 <AvatarUpload user={profile} onUpdate={handleAvatarUpdate} />
-                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800">
                     <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
                         {profile.name}
                     </h1>
@@ -92,28 +101,26 @@ export default function Profile() {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-4 sm:mb-5 md:mb-6 w-fit">
-                {[
-                    { key: 'profile', label: 'Profile', icon: <FiUser className="flex-shrink-0" /> },
-                    { key: 'password', label: 'Password', icon: <FiLock className="flex-shrink-0" /> },
-                ].map((tab) => (
+            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-1 mb-4 sm:mb-5 md:mb-6 w-fit">
+                {tabs.map((t) => (
                     <button
-                        key={tab.key}
-                        onClick={() => setTab(tab.key)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${tab === tab.key
-                                ? 'bg-white dark:bg-gray-700 shadow text-gray-800 dark:text-white'
+                        key={t.key}
+                        onClick={() => setActiveTab(t.key)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                            activeTab === t.key
+                                ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400 border border-gray-200 dark:border-gray-600'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
-                            }`}
+                        }`}
                     >
-                        {tab.icon}
-                        {tab.label}
+                        {t.icon}
+                        {t.label}
                     </button>
                 ))}
             </div>
 
             {/* Profile tab */}
-            {tab === 'profile' && (
-                <div className="card p-4 sm:p-5 md:p-6">
+            {activeTab === 'profile' && (
+                <div className="card p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
                     <h2 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">
                         <FiUser className="text-blue-500 flex-shrink-0" />
                         Personal Information
@@ -165,8 +172,8 @@ export default function Profile() {
             )}
 
             {/* Password tab */}
-            {tab === 'password' && (
-                <div className="card p-4 sm:p-5 md:p-6">
+            {activeTab === 'password' && (
+                <div className="card p-4 sm:p-5 md:p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
                     <h2 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">
                         <FiLock className="text-blue-500 flex-shrink-0" />
                         Change Password
@@ -176,41 +183,58 @@ export default function Profile() {
                             <label className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 <FiLock className="text-gray-400 flex-shrink-0" /> Current Password
                             </label>
-                            <input
-                                type="password"
-                                className="input text-sm sm:text-base"
-                                value={pwForm.currentPassword}
-                                onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showCurrent ? 'text' : 'password'}
+                                    className="input text-sm sm:text-base pr-10"
+                                    value={pwForm.currentPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
+                                    required
+                                />
+                                <button type="button" onClick={() => setShowCurrent(!showCurrent)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                    {showCurrent ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 <FiLock className="text-gray-400 flex-shrink-0" /> New Password
                             </label>
-                            <input
-                                type="password"
-                                className="input text-sm sm:text-base"
-                                value={pwForm.newPassword}
-                                onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showNew ? 'text' : 'password'}
+                                    className="input text-sm sm:text-base pr-10"
+                                    value={pwForm.newPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
+                                    required
+                                />
+                                <button type="button" onClick={() => setShowNew(!showNew)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                    {showNew ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                                </button>
+                            </div>
                             <PasswordStrength password={pwForm.newPassword} />
                         </div>
                         <div>
                             <label className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 <FiLock className="text-gray-400 flex-shrink-0" /> Confirm New Password
                             </label>
-                            <input
-                                type="password"
-                                className="input text-sm sm:text-base"
-                                value={pwForm.confirmPassword}
-                                onChange={(e) => setPwForm({ ...pwForm, confirmPassword: e.target.value })}
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showConfirm ? 'text' : 'password'}
+                                    className="input text-sm sm:text-base pr-10"
+                                    value={pwForm.confirmPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, confirmPassword: e.target.value })}
+                                    required
+                                />
+                                <button type="button" onClick={() => setShowConfirm(!showConfirm)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                    {showConfirm ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                                </button>
+                            </div>
                             {pwForm.confirmPassword && (
-                                <p className={`flex items-center gap-1 text-xs mt-1 ${pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'
-                                    }`}>
+                                <p className={`flex items-center gap-1 text-xs mt-1 ${pwForm.newPassword === pwForm.confirmPassword ? 'text-green-500' : 'text-red-500'}`}>
                                     {pwForm.newPassword === pwForm.confirmPassword
                                         ? <><FiCheck className="flex-shrink-0" /> Passwords match</>
                                         : <><FiX className="flex-shrink-0" /> Passwords do not match</>
@@ -241,7 +265,6 @@ export default function Profile() {
         </div>
     )
 
-    // ── Admin gets AdminLayout, student gets plain layout ──
     if (isAdmin) {
         return <AdminLayout>{content}</AdminLayout>
     }
