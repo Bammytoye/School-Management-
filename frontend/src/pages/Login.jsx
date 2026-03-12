@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { FaSchool } from 'react-icons/fa'
-import { FiMail, FiLock, FiLogIn, FiSun, FiMoon, FiArrowLeft } from 'react-icons/fi'
+import { FiMail, FiLock, FiLogIn, FiEye, FiEyeOff, FiArrowLeft } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
 
 export default function Login() {
-    const { login }             = useAuth()
-    const navigate              = useNavigate()
-    const [form, setForm]       = useState({ email: '', password: '' })
-    const [error, setError]     = useState('')
+    const { login } = useAuth()
+    const navigate = useNavigate()
+    const [form, setForm] = useState({ email: '', password: '' })
+    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -71,15 +72,25 @@ export default function Login() {
                         <label className="flex items-center gap-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             <FiLock className="text-gray-400 flex-shrink-0" /> Password
                         </label>
-                        <input
-                            name="password"
-                            type="password"
-                            required
-                            value={form.password}
-                            onChange={handleChange}
-                            className="input w-full"
-                            placeholder="••••••••"
-                        />
+                        {/* Password input with toggle */}
+                        <div className="relative">
+                            <input
+                                name="password"
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                value={form.password}
+                                onChange={handleChange}
+                                className="input w-full pr-10"
+                                placeholder="••••••••"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                            >
+                                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                            </button>
+                        </div>
                     </div>
                     <button
                         type="submit"
