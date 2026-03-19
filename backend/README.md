@@ -255,3 +255,4 @@ The project is configured for **Render** with a **Supabase** PostgreSQL database
 npm run dev   # Start with nodemon (development)
 npm start     # Start with node (production)
 ```
+
