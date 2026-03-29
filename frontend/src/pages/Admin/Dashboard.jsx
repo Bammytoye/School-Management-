@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import AdminLayout from '../../components/AdminLayout'
 
 import WelcomeBanner from './DashBoard/WelcomeBanner'
-import StatsGrid from './DashBoard/StatsGrid'
+// import StatsGrid from './DashBoard/StatsGrid'
 import EnrolmentChart from './DashBoard/EnrolmentChart'
 import GradeChart from './DashBoard/GradeChart'
 import TopCoursesChart from './DashBoard/TopCoursesChart'
@@ -15,12 +15,12 @@ import { dashboardAPI } from '../../API/dashboardAPI'
 export default function Dashboard() {
     const { user } = useAuth()
 
-    const [stats, setStats] = useState(null)
+    // const [stats, setStats] = useState(null)
     const [enrolByMonth, setEnrolMonth] = useState([])
     const [gradesDist, setGradesDist] = useState([])
     const [topCourses, setTopCourses] = useState([])
     const [attendance, setAttendance] = useState([])
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const load = async () => {
@@ -31,7 +31,7 @@ export default function Dashboard() {
                 ])
 
                 console.log('📊 Stats:', statsRes.data);  
-                setStats(statsRes.data.stats)
+                // setStats(statsRes.data.stats)
 
                 const c = chartsRes.data
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
                 console.error('Dashboard load error:', error)
             }
 
-            setLoading(false)
+            // setLoading(false)
         }
 
         load()
@@ -53,7 +53,8 @@ export default function Dashboard() {
     return (
         <AdminLayout>
             <WelcomeBanner user={user} />
-            <StatsGrid stats={stats} loading={loading} />
+
+            {/* <StatsGrid stats={stats} loading={loading} /> */}
 
             {/* Charts Row 1 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
