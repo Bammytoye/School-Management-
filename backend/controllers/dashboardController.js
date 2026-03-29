@@ -63,3 +63,29 @@ export const getDashboardCharts = async (req, res, next) => {
         })
     } catch (err) { next(err) }
 }
+
+//get stats
+export const getStats = async (req, res, next) => {
+    try {
+        const [students, courses, enrolments, admins] = await Promise.all([
+            pool.query("SELECT COUNT(*) FROM users WHERE role = 'student'"),
+            pool.query("SELECT COUNT(*) FROM courses"),
+            pool.query("SELECT COUNT(*) FROM enrolments"),
+            pool.query("SELECT COUNT(*) FROM users WHERE role = 'admin'")
+        ]);
+
+        res.json({
+            success: true,
+            stats: {
+                total_students: parseInt(students.rows[0].count),
+                total_courses: parseInt(courses.rows[0].count),
+                total_enrolment: parseInt(enrolments.rows[0].count),
+                total_admins: parseInt(admins.rows[0].count),
+            }
+        });
+    } catch (err) {
+        console.error('Dashboard stats error:', err);
+        next(err);
+    }
+};
+

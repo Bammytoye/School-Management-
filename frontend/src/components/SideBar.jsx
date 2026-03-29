@@ -10,7 +10,7 @@ const links = [
     { to: '/admin/enrolment',  icon: <FiClipboard />,            label: 'Enrolment'  },
     { to: '/admin/grades',     icon: <MdOutlineGrade />,         label: 'Grades'     },
     { to: '/admin/attendance', icon: <MdOutlineCalendarToday />, label: 'Attendance' },
-    { to: '/profile',          icon: <FiUser />,                 label: 'My Profile' },
+    // { to: '/profile',          icon: <FiUser />,                 label: 'My Profile' },
 ]
 
 export default function SideBar() {

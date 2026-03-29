@@ -10,11 +10,9 @@ import AttendanceChart from './DashBoard/AttendanceChart'
 import QuickActions from './DashBoard/QuickActions'
 
 import { useAuth } from '../../context/AuthContext'
-import { enrolmentAPI } from '../../API/enrolmentAPI'
-import api from '../../API/api'
+import { dashboardAPI } from '../../API/dashboardAPI'  
 
 export default function Dashboard() {
-
     const { user } = useAuth()
 
     const [stats, setStats] = useState(null)
@@ -25,16 +23,14 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
         const load = async () => {
-
             try {
-
                 const [statsRes, chartsRes] = await Promise.all([
-                    enrolmentAPI.getStats(),
-                    api.get('/dashboard/charts')
+                    dashboardAPI.getStats(),    // enrolmentAPI.getStats()
+                    dashboardAPI.getCharts()    // api.get('/dashboard/charts')
                 ])
 
+                console.log('📊 Stats:', statsRes.data);  
                 setStats(statsRes.data.stats)
 
                 const c = chartsRes.data
@@ -45,22 +41,18 @@ export default function Dashboard() {
                 setAttendance(c.attendanceSummary || [])
 
             } catch (error) {
-                console.log(error)
+                console.error('Dashboard load error:', error)
             }
 
             setLoading(false)
         }
 
         load()
-
     }, [])
 
     return (
-
         <AdminLayout>
-
             <WelcomeBanner user={user} />
-
             <StatsGrid stats={stats} loading={loading} />
 
             {/* Charts Row 1 */}
@@ -76,8 +68,6 @@ export default function Dashboard() {
             </div>
 
             <QuickActions />
-
         </AdminLayout>
-
     )
 }

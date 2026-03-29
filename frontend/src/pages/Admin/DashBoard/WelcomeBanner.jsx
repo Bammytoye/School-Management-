@@ -26,7 +26,7 @@ export default function WelcomeBanner({ user }) {
                     {getGreeting()}, {user?.name?.split(' ')[0]} 👋
                 </h1>
                 <p className="text-blue-100 text-xs sm:text-sm mt-0.5 sm:mt-1">
-                    Here's what's happening at your school today.
+                    Here's what's happening at our school today.
                 </p>
             </div>
 
