@@ -64,7 +64,6 @@ app.use((req, res, next) => {
     });
 });
 
-// Global error handler (4 parameters - error middleware) - MUST BE LAST
 app.use((err, req, res, next) => {
     console.error('ERROR:', err.message);
     console.error('Stack:', err.stack);
