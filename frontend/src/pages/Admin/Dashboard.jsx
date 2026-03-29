@@ -10,7 +10,7 @@ import AttendanceChart from './DashBoard/AttendanceChart'
 import QuickActions from './DashBoard/QuickActions'
 
 import { useAuth } from '../../context/AuthContext'
-import { dashboardAPI } from '../../API/dashboardAPI.js'
+import { enrolmentAPI } from '../../API/enrolmentAPI'
 import api from '../../API/api'
 
 export default function Dashboard() {
@@ -31,7 +31,7 @@ export default function Dashboard() {
             try {
 
                 const [statsRes, chartsRes] = await Promise.all([
-                    dashboardAPI.getStats(),
+                    enrolmentAPI.getStats(),
                     api.get('/dashboard/charts')
                 ])
 
